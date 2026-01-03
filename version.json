@@ -1,0 +1,10 @@
+{
+  "version": "1.0.44",
+  "releaseDate": "2026-01-03",
+  "changelog": [
+    "Corrección de odómetros iniciales a 0",
+    "Detección de viajes en curso al iniciar",
+    "Nuevo botón de información de versión"
+  ],
+  "downloadUrl": "https://raw.githubusercontent.com/tuusuario/tu-repo/main/index.html"
+}
