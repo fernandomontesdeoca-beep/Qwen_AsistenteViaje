@@ -1,48 +1,66 @@
 {
-  "name": "Asistente de Viaje",
-  "short_name": "Mi Viaje",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "orientation": "portrait",
-  "description": "Bitácora de viajes y gastos offline - Aplicación PWA de archivo único",
-  "lang": "es",
-  "icons": [
-    {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "./screenshots/home.png",
-      "sizes": "1170x2532",
-      "type": "image/png"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Nuevo Viaje",
-      "short_name": "Viaje",
-      "description": "Iniciar un nuevo viaje",
-      "url": "./index.html?startTrip=true",
-      "icons": [{ "src": "./icons/shortcut-start.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Nuevo Gasto",
-      "short_name": "Gasto",
-      "description": "Registrar un nuevo gasto",
-      "url": "./index.html?newExpense=true",
-      "icons": [{ "src": "./icons/shortcut-expense.png", "sizes": "192x192" }]
-    }
-  ]
+"name": "Asistente de Viaje",
+"short_name": "Mi Viaje",
+"start_url": "./index.html",
+"display": "standalone",
+"background_color": "#0f172a",
+"theme_color": "#0f172a",
+"orientation": "portrait",
+"description": "Bitácora de viajes y gastos offline - Aplicación PWA de archivo único",
+"lang": "es",
+"icons": [
+{
+"src": "https://cdn-icons-png.flaticon.com/512/1048/1048313.png",
+"sizes": "192x192",
+"type": "image/png",
+"purpose": "maskable"
+},
+{
+"src": "https://cdn-icons-png.flaticon.com/512/1048/1048313.png",
+"sizes": "512x512",
+"type": "image/png",
+"purpose": "maskable"
+}
+],
+"screenshots": [
+{
+"src": "/screenshots/home.png",
+"sizes": "1170x2532",
+"type": "image/png",
+"form_factor": "wide"
+},
+{
+"src": "/screenshots/mobile.png",
+"sizes": "375x812",
+"type": "image/png",
+"form_factor": "narrow"
+}
+],
+"shortcuts": [
+{
+"name": "Nuevo Viaje",
+"short_name": "Viaje",
+"description": "Iniciar un nuevo viaje",
+"url": "./index.html?startTrip=true",
+"icons": [{ "src": "/icons/shortcut-start.png", "sizes": "192x192" }]
+},
+{
+"name": "Nuevo Gasto",
+"short_name": "Gasto",
+"description": "Registrar un nuevo gasto",
+"url": "./index.html?newExpense=true",
+"icons": [{ "src": "/icons/shortcut-expense.png", "sizes": "192x192" }]
+},
+{
+"name": "Historial",
+"short_name": "Historial",
+"description": "Ver historial de viajes",
+"url": "./index.html?history=true",
+"icons": [{ "src": "/icons/shortcut-history.png", "sizes": "192x192" }]
+}
+],
+"categories": ["utilities", "travel", "productivity"],
+"prefer_related_applications": false,
+"related_applications": [],
+"display_override": ["window-controls-overlay"]
 }
