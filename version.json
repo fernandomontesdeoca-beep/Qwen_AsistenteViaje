@@ -1,10 +1,14 @@
 {
-  "version": "1.0.44",
-  "releaseDate": "2026-01-03",
-  "changelog": [
-    "Corrección de odómetros iniciales a 0",
-    "Detección de viajes en curso al iniciar",
-    "Nuevo botón de información de versión"
-  ],
-  "downloadUrl": "https://raw.githubusercontent.com/tuusuario/tu-repo/main/index.html"
+"version": "1.0.44",
+"releaseDate": "2026-01-03",
+"changelog": [
+"✅ Todos los odómetros inicializan en 0",
+"✅ Persistencia de viajes en curso al cerrar la aplicación",
+"✅ Detección automática de nuevas versiones en GitHub",
+"✅ Botón de información de versión en la interfaz",
+"✅ Mejorada la gestión de caché y offline",
+"✅ Optimizada la experiencia de usuario móvil",
+"✅ Corrección de bugs y mejoras de rendimiento"
+],
+"downloadUrl": "https://raw.githubusercontent.com/tuusuario/tu-repo/main/index.html"
 }
