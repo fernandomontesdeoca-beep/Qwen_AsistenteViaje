@@ -10,154 +10,178 @@
 <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1048/1048313.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<script src="https://cdn.tailwindcss.com"></script>
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- Tailwind CSS - Versión compilada localmente -->
 <style>
-:root {
---primary-color: #0f172a;
---secondary-color: #1e293b;
---accent-color: #38bdf8;
---success-color: #10b981;
---warning-color: #f59e0b;
---error-color: #ef4444;
-}
+/*! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com */
+/* CSS Resets y configuración básica */
+*,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
+html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}
+body{margin:0;line-height:inherit}
+hr{height:0;color:inherit;border-top-width:1px}
+abbr:where([title]){text-decoration:underline dotted}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}
+a{color:inherit;text-decoration:inherit}
+b,strong{font-weight:bolder}
+code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sub{bottom:-0.25em}
+sup{top:-0.5em}
+table{text-indent:0;border-color:inherit;border-collapse:collapse}
+button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:inherit;color:inherit;margin:0;padding:0}
+button,select{text-transform:none}
+button,[type='button'],[type='reset'],[type='submit']{-webkit-appearance:button;background-color:transparent;background-image:none}
+:-moz-focusring{outline:auto}
+:-moz-ui-invalid{box-shadow:none}
+progress{vertical-align:baseline}
+::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}
+[type='search']{-webkit-appearance:textfield;outline-offset:-2px}
+::-webkit-search-decoration{-webkit-appearance:none}
+::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+summary{display:list-item}
+blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}
+button{background-color:transparent;background-image:none}
+fieldset{margin:0;padding:0}
+ol,ul{list-style:none;margin:0;padding:0}
+menu{list-style:none;margin:0;padding:0}
+textarea{resize:vertical}
+input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}
+input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}
+button,[role="button"]{cursor:pointer}
+:disabled{cursor:default}
+audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}
+img,video{max-width:100%;height:auto}
+[hidden]{display:none}
+
+/* Estilos básicos para la aplicación */
 body {
--webkit-tap-highlight-color: transparent;
-user-select: none;
-touch-action: manipulation;
-overscroll-behavior-y: none;
-background-color: #f1f5f9;
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-margin: 0;
-padding: 0;
-min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: manipulation;
+  overscroll-behavior-y: none;
+  background-color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 #root {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 input, textarea, select {
-user-select: text;
+  user-select: text;
 }
 .scrollbar-hide::-webkit-scrollbar {
-display: none;
+  display: none;
 }
 .scrollbar-hide {
--ms-overflow-style: none;
-scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .animate-fade-in {
-animation: fadeIn 0.3s ease-out forwards;
+  animation: fadeIn 0.3s ease-out forwards;
 }
 @keyframes fadeIn {
-from { opacity: 0; transform: scale(0.95); }
-to { opacity: 1; transform: scale(1); }
-}
-.animate-slide-up {
-animation: slideUp 0.4s ease-out forwards;
-}
-@keyframes slideUp {
-from { transform: translateY(100%); opacity: 0; }
-to { transform: translateY(0); opacity: 1; }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 .sr-only {
-position: absolute;
-width: 1px;
-height: 1px;
-padding: 0;
-margin: -1px;
-overflow: hidden;
-clip: rect(0, 0, 0, 0);
-white-space: nowrap;
-border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 #app-error {
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background: #1e293b;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-z-index: 1000;
-color: white;
-padding: 20px;
-text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1e293b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 #app-error h2 {
-font-size: 1.5rem;
-margin-bottom: 1rem;
-color: #ef4444;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ef4444;
 }
 #app-error p {
-margin-bottom: 1rem;
-color: #cbd5e1;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
 }
 #app-error button {
-background: #3b82f6;
-color: white;
-border: none;
-padding: 10px 20px;
-border-radius: 8px;
-font-weight: bold;
-cursor: pointer;
-transition: background 0.2s;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 #app-error button:hover {
-background: #2563eb;
+  background: #2563eb;
 }
 .loading-screen {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-min-height: 100vh;
-background: #0f172a;
-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #0f172a;
+  color: white;
 }
 .loading-spinner {
-width: 48px;
-height: 48px;
-border: 4px solid rgba(255, 255, 255, 0.3);
-border-radius: 50%;
-border-top-color: #38bdf8;
-animation: spin 1s linear infinite;
-margin-bottom: 20px;
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #38bdf8;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
 }
 @keyframes spin {
-to { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 </style>
 </head>
 <body>
 <div id="root">
-<div class="loading-screen">
-<div class="loading-spinner"></div>
-<h2>Cargando Asistente de Viaje</h2>
-<p>v1.0.44</p>
-</div>
+  <div class="loading-screen">
+    <div class="loading-spinner"></div>
+    <h2>Cargando Asistente de Viaje</h2>
+    <p>v1.0.44</p>
+  </div>
 </div>
 <div id="app-error" style="display: none;">
-<h2>⚠️ Error de Aplicación</h2>
-<p id="error-message">Ocurrió un error inesperado</p>
-<button onclick="location.reload()">Recargar Aplicación</button>
+  <h2>⚠️ Error de Aplicación</h2>
+  <p id="error-message">Ocurrió un error inesperado</p>
+  <button onclick="location.reload()">Recargar Aplicación</button>
 </div>
 <script>
 // Configuración para GitHub Pages - Detectar base URL automáticamente
 const getGitHubBaseUrl = () => {
-const path = window.location.pathname;
-const repoName = path.split('/')[1] || '';
-// Si estamos en un subdirectorio (GitHub Pages), usar ese como base
-if (repoName && !repoName.includes('.')) {
-return `/${repoName}/`;
-}
-return './';
+  const path = window.location.pathname;
+  const repoName = path.split('/')[1] || '';
+  // Si estamos en un subdirectorio (GitHub Pages), usar ese como base
+  if (repoName && !repoName.includes('.')) {
+    return `/${repoName}/`;
+  }
+  return './';
 };
 
 // Establecer base URL para la aplicación
@@ -166,1073 +190,673 @@ console.log('GitHub Base URL:', BASE_URL);
 
 // Helper para construir URLs absolutas
 const buildUrl = (path) => {
-if (path.startsWith('http') || path.startsWith('//')) return path;
-if (path.startsWith('./')) return BASE_URL + path.substring(2);
-if (path.startsWith('/')) return BASE_URL + path.substring(1);
-return BASE_URL + path;
+  if (path.startsWith('http') || path.startsWith('//')) return path;
+  if (path.startsWith('./')) return BASE_URL + path.substring(2);
+  if (path.startsWith('/')) return BASE_URL + path.substring(1);
+  return BASE_URL + path;
 };
 
 // Manejo de errores global
 window.onerror = function(message, source, lineno, colno, error) {
-console.error('Global Error:', message, error);
-showAppError(`Error: ${message} en línea ${lineno}`);
-return true;
+  console.error('Global Error:', message, error);
+  showAppError(`Error: ${message} en línea ${lineno}`);
+  return true;
 };
 
 window.addEventListener('unhandledrejection', function(event) {
-console.error('Unhandled Rejection:', event.reason);
-showAppError(`Error no manejado: ${event.reason?.message || event.reason}`);
+  console.error('Unhandled Rejection:', event.reason);
+  showAppError(`Error no manejado: ${event.reason?.message || event.reason}`);
 });
 
 function showAppError(message) {
-document.getElementById('app-error').style.display = 'flex';
-document.getElementById('error-message').textContent = message;
-// Ocultar pantalla de carga
-const root = document.getElementById('root');
-if (root) root.innerHTML = '';
+  document.getElementById('app-error').style.display = 'flex';
+  document.getElementById('error-message').textContent = message;
+  // Ocultar pantalla de carga
+  const root = document.getElementById('root');
+  if (root) root.innerHTML = '';
 }
 
-// Intentar cargar la aplicación con manejo de errores
-try {
-// Código React se cargará aquí
-} catch (error) {
-console.error('Error inicializando aplicación:', error);
-showAppError(`Error de inicialización: ${error.message}`);
+// Intentar cargar React desde CDN con fallback
+const loadReact = async () => {
+  try {
+    // Cargar React y ReactDOM desde CDN
+    const reactScript = document.createElement('script');
+    reactScript.src = 'https://unpkg.com/react@18/umd/react.production.min.js';
+    reactScript.crossOrigin = 'anonymous';
+    reactScript.async = true;
+    
+    const reactDomScript = document.createElement('script');
+    reactDomScript.src = 'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js';
+    reactDomScript.crossOrigin = 'anonymous';
+    reactDomScript.async = true;
+    
+    document.head.appendChild(reactScript);
+    document.head.appendChild(reactDomScript);
+    
+    // Esperar a que React se cargue
+    await new Promise((resolve) => {
+      reactScript.onload = resolve;
+      reactScript.onerror = () => {
+        throw new Error('Failed to load React');
+      };
+    });
+    
+    await new Promise((resolve) => {
+      reactDomScript.onload = resolve;
+      reactDomScript.onerror = () => {
+        throw new Error('Failed to load ReactDOM');
+      };
+    });
+    
+    console.log('React cargado exitosamente');
+    return true;
+  } catch (error) {
+    console.error('Error cargando React:', error);
+    showAppError(`Error cargando dependencias: ${error.message}`);
+    return false;
+  }
+};
+
+// Iniciar la aplicación
+loadReact().then(success => {
+  if (success) {
+    // Cargar la aplicación principal
+    loadApp();
+  }
+});
+
+function loadApp() {
+  try {
+    // Aquí va el código de la aplicación con el error de sintaxis corregido
+    const appCode = `
+    const { useState, useEffect, useRef } = React;
+    
+    // ==========================================
+    // CONFIGURACION DE LA APLICACIÓN PARA GITHUB PAGES
+    // ==========================================
+    const APP_VERSION = '1.0.44';
+    
+    // Detectar automáticamente la URL del repositorio en GitHub Pages
+    const getGitHubRepoUrl = () => {
+      const url = window.location.href;
+      // Si estamos en GitHub Pages, extraer el repo path
+      if (url.includes('github.io')) {
+        const pathParts = url.split('/');
+        const username = pathParts[2].split('.')[0]; // usuario.github.io
+        const repoName = pathParts[3] || '';
+        if (repoName) {
+          return \`https://raw.githubusercontent.com/\${username}/\${repoName}/main\`;
+        }
+      }
+      // Fallback para desarrollo local
+      return './';
+    };
+    
+    const GITHUB_REPO_URL = getGitHubRepoUrl();
+    console.log('GitHub Repo URL:', GITHUB_REPO_URL);
+    
+    const DB_NAME = 'TripAssistantDB_v2';
+    const DB_VERSION = 2;
+    
+    // ==========================================
+    // SISTEMA DE ICONOS INTEGRADO
+    // ==========================================
+    const ICONS = {
+      Play: <polygon points="5 3 19 12 5 21 5 3" />,
+      MapPin: <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></>,
+      DollarSign: <><line x1="12" x2="12" y1="2" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></>,
+      Clock: <><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></>,
+      Car: <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />,
+      AlertTriangle: <><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><line x1="12" x2="12" y1="9" y2="13" /><line x1="12" x2="12.01" y1="17" y2="17" /></>,
+      CheckCircle: <><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></>,
+      Plus: <><line x1="12" x2="12" y1="5" y2="19" /><line x1="5" x2="19" y1="12" y2="12" /></>,
+      Settings: <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />,
+      Fuel: <><line x1="3" x2="15" y1="22" y2="22" /><line x1="4" x2="14" y1="9" y2="9" /><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18" /><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5" /></>,
+      Utensils: <><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /><path d="M7 2v20" /><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /></>,
+      Bed: <><path d="M2 4v16" /><path d="M2 8h18a2 2 0 0 1 2 2v10" /><path d="M2 17h20" /><path d="M6 8v9" /></>,
+      Briefcase: <><rect width="20" height="14" x="2" y="7" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></>,
+      CreditCard: <><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></>,
+      Wallet: <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4" />,
+      Landmark: <><line x1="3" x2="21" y1="22" y2="22" /><line x1="6" x2="6" y1="18" y2="11" /><line x1="10" x2="10" y1="18" y2="11" /><line x1="14" x2="14" y1="18" y2="11" /><line x1="18" x2="18" y1="18" y2="11" /><polygon points="12 2 20 7 4 7" /></>,
+      X: <><path d="M18 6 6 18" /><path d="m6 6 12 12" /></>,
+      Save: <><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" /><polyline points="17 21 17 13 7 13 7 21" /><polyline points="7 3 7 8 15 8" /></>,
+      Zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />,
+      Truck: <><rect width="16" height="13" x="1" y="6" rx="2" /><polygon points="17 10 22 11 22 17 17 17 17 10" /></>,
+      Edit2: <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />,
+      ChevronDown: <path d="m6 9 6 6 6-6" />,
+      ShoppingBag: <><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></>,
+      History: <><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12" /><path d="M3 3v9h9" /><path d="M12 7v5l4 2" /></>,
+      User: <><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>,
+      Users: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>,
+      StickyNote: <><path d="M15.5 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z" /><path d="M15 3v6h6" /></>,
+      ArrowRight: <path d="M5 12h14M12 5l7 7-7 7" />,
+      Trash2: <><path d="M3 6h18" /><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" x2="10" y1="11" y2="17" /><line x1="14" x2="14" y1="11" y2="17" /></>,
+      Calendar: <><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /></>,
+      Home: <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />,
+      Info: <><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="16" y2="12" /><line x1="12" x2="12.01" y1="8" y2="8" /></>,
+      Download: <><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 13 7 8" /><line x1="12" x2="12" y1="2" y2="13" /></>,
+      Cloud: <><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" /></>,
+      ArrowUpRight: <><line x1="7" x2="17" y1="17" y2="7" /><polyline points="7 7 17 7 17 17" /></>,
+      RefreshCw: <><path d="M23 4a10 10 0 0 1-19.92 1.23L3 4" /><path d="M1 4a10 10 0 0 0 19.92 1.23L21 4" /></>
+    };
+    
+    const Icon = ({ name, size = 24, className = "", fill = "none" }) => {
+      if (!ICONS[name]) return null;
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill={fill}
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={className}
+        >
+          {ICONS[name]}
+        </svg>
+      );
+    };
+    
+    // --- CONSTANTES ---
+    const LOCATIONS_CONFIG = {
+      'Cliente': { icon: 'User', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' },
+      'Trabajo': { icon: 'Briefcase', color: 'text-slate-600', bg: 'bg-slate-50', border: 'border-slate-200' },
+      'Casa': { icon: 'Home', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-200' },
+      'Restaurante': { icon: 'Utensils', color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-200' },
+      'Hotel': { icon: 'Bed', color: 'text-violet-600', bg: 'bg-violet-50', border: 'border-violet-200' },
+      'Otra': { icon: 'MapPin', color: 'text-gray-600', bg: 'bg-gray-50', border: 'border-gray-200' }
+    };
+    
+    const LOCATIONS_PRESETS = Object.keys(LOCATIONS_CONFIG);
+    
+    const EXPENSE_CATEGORIES = {
+      FOOD: ['Desayuno', 'Almuerzo', 'Merienda', 'Cena', 'Refrigerio'],
+      LODGING: ['Alojamiento'],
+      TRIP: ['Peaje', 'Estacionamiento', 'Carga Combustible', 'Carga Eléctrica'],
+      OTHER: ['Otros']
+    };
+    
+    const PAYMENT_METHODS = [
+      { id: 'EFECTIVO', label: 'Efectivo', icon: 'Wallet' },
+      { id: 'DEBITO', label: 'Débito', icon: 'CreditCard' },
+      { id: 'CREDITO', label: 'Crédito', icon: 'CreditCard' },
+      { id: 'TRANSFERENCIA', label: 'Transferencia', icon: 'Landmark' },
+    ];
+    
+    const CURRENCIES = ['UYU', 'U$D', 'Otro'];
+    
+    const EXPENSE_TYPES = ['Personal', 'Empresa'];
+    
+    const VEHICLE_TYPES = [
+      { id: 'PERSONAL', label: 'Personal', short: 'Personal', icon: 'Car', type: 'fuel' },
+      { id: 'COMPANY_FUEL', label: 'Empresa Combustible', short: 'Emp. Comb.', icon: 'Truck', type: 'fuel' },
+      { id: 'COMPANY_ELECTRIC', label: 'Empresa Eléctrico', short: 'Emp. Elec.', icon: 'Zap', type: 'electric' },
+      { id: 'OTHER', label: 'Otros', short: 'Otros', icon: 'Car', type: 'fuel' },
+    ];
+    
+    // TARIFAS OFICIALES URUGUAY 2026
+    const OFFICIAL_RATES = {
+      toll: '162.00',
+      fuel: '78.02', // Super 95
+      electricAC: '9.50',
+      electricDC: '10.80'
+    };
+    
+    // --- INDEXEDDB HELPERS MEJORADOS ---
+    const dbHelper = {
+      init: () => {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(DB_NAME, DB_VERSION);
+          
+          request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('app_data')) {
+              db.createObjectStore('app_data');
+            }
+            // Nuevas tablas para mejor organización
+            if (!db.objectStoreNames.contains('trips')) {
+              db.createObjectStore('trips', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('expenses')) {
+              db.createObjectStore('expenses', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('visits')) {
+              db.createObjectStore('visits', { keyPath: 'id' });
+            }
+            if (!db.objectStoreNames.contains('settings')) {
+              db.createObjectStore('settings', { keyPath: 'key' });
+            }
+          };
+    
+          request.onsuccess = (event) => resolve(event.target.result);
+          request.onerror = (event) => reject(event.target.error);
+        });
+      },
+    
+      get: async (storeName, key) => {
+        try {
+          const db = await dbHelper.init();
+          return new Promise((resolve, reject) => {
+            const transaction = db.transaction([storeName], 'readonly');
+            const store = transaction.objectStore(storeName);
+            const request = store.get(key);
+            
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+          });
+        } catch (e) {
+          console.warn(\`DB Get Error for \${storeName}:\${key}:\`, e);
+          return null;
+        }
+      },
+    
+      set: async (storeName, key, value) => {
+        try {
+          const db = await dbHelper.init();
+          return new Promise((resolve, reject) => {
+            const transaction = db.transaction([storeName], 'readwrite');
+            const store = transaction.objectStore(storeName);
+            const request = store.put(value, key);
+            
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+          });
+        } catch (e) {
+          console.error(\`DB Set Error for \${storeName}:\${key}:\`, e);
+        }
+      },
+    
+      getAll: async (storeName) => {
+        try {
+          const db = await dbHelper.init();
+          return new Promise((resolve, reject) => {
+            const transaction = db.transaction([storeName], 'readonly');
+            const store = transaction.objectStore(storeName);
+            const request = store.getAll();
+            
+            request.onsuccess = () => resolve(request.result || []);
+            request.onerror = () => reject(request.error);
+          });
+        } catch (e) {
+          console.warn(\`DB GetAll Error for \${storeName}:\`, e);
+          return [];
+        }
+      },
+    
+      delete: async (storeName, key) => {
+        try {
+          const db = await dbHelper.init();
+          return new Promise((resolve, reject) => {
+            const transaction = db.transaction([storeName], 'readwrite');
+            const store = transaction.objectStore(storeName);
+            const request = store.delete(key);
+            
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+          });
+        } catch (e) {
+          console.error(\`DB Delete Error for \${storeName}:\${key}:\`, e);
+        }
+      }
+    };
+    
+    // --- HELPERS MEJORADOS ---
+    const getVehicleInfo = (id) => VEHICLE_TYPES.find(v => v.id === id) || VEHICLE_TYPES[0];
+    
+    const formatMoney = (amount) => {
+      return Number(amount || 0).toFixed(2);
+    };
+    
+    const formatDistance = (distance) => {
+      return Math.max(0, parseInt(distance || 0)).toLocaleString();
+    };
+    
+    const formatDate = (date) => {
+      if (!date) return '';
+      const d = new Date(date);
+      return d.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+    };
+    
+    const formatTimeOnly = (date) => {
+      if (!date) return '';
+      const d = new Date(date);
+      return d.toLocaleTimeString('es-ES', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    };
+    
+    const formatTime = (seconds) => {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return \`\${mins.toString().padStart(2, '0')}:\${secs.toString().padStart(2, '0')}\`;
+    };
+    
+    // --- COMPONENTES MEJORADOS ---
+    
+    // Modal de Información de Versión
+    const VersionInfoModal = ({ isOpen, onClose }) => {
+      if (!isOpen) return null;
+      
+      const appInfo = {
+        version: APP_VERSION,
+        lastUpdate: new Date().toLocaleDateString('es-ES'),
+        offline: true,
+        storage: 'IndexedDB',
+        githubUrl: GITHUB_REPO_URL.replace('raw.githubusercontent.com', 'github.com').replace('/main', '')
+      };
+      
+      return (
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-[110] flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center">
+                <Icon name="Info" size={28} className="text-blue-600 mr-3"/>
+                <h3 className="text-xl font-bold text-slate-800">Información de la Aplicación</h3>
+              </div>
+              <button onClick={onClose} className="p-2 bg-slate-100 rounded-full hover:bg-slate-200">
+                <Icon name="X" size={20} className="text-slate-500"/>
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                <div className="flex justify-between">
+                  <span className="font-medium text-slate-600">Versión actual:</span>
+                  <span className="font-bold text-blue-600 text-lg">{appInfo.version}</span>
+                </div>
+                <div className="flex justify-between mt-2">
+                  <span className="font-medium text-slate-600">Última actualización:</span>
+                  <span className="font-medium text-slate-500">{appInfo.lastUpdate}</span>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-slate-50 p-3 rounded-lg text-center">
+                  <Icon name="Cloud" size={24} className="text-slate-400 mb-2 mx-auto"/>
+                  <span className="text-xs font-bold text-slate-600">Modo Offline</span>
+                  <div className="mt-1 font-bold text-green-600 text-sm">✅ Activo</div>
+                </div>
+                <div className="bg-slate-50 p-3 rounded-lg text-center">
+                  <Icon name="Save" size={24} className="text-slate-400 mb-2 mx-auto"/>
+                  <span className="text-xs font-bold text-slate-600">Almacenamiento</span>
+                  <div className="mt-1 font-bold text-slate-700 text-sm">IndexedDB</div>
+                </div>
+              </div>
+              
+              <div className="bg-amber-50 p-4 rounded-xl border border-amber-100 mt-4">
+                <p className="text-xs text-amber-700 mb-3">
+                  Esta aplicación funciona completamente offline. Tus datos se guardan localmente en tu dispositivo y están disponibles sin conexión a internet.
+                </p>
+                <div className="flex items-center justify-center">
+                  <Icon name="ArrowUpRight" size={16} className="text-amber-500 mr-1"/>
+                  <a href={appInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-amber-700 hover:text-amber-800 text-sm">
+                    Repositorio GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <button 
+              onClick={onClose}
+              className="mt-6 w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      );
+    };
+    
+    // Componente App Principal con Todas las Mejoras
+    const App = () => {
+      // --- ESTADO MEJORADO ---
+      const [appState, setAppState] = useState('LOADING');
+      const [defaultVehicleId, setDefaultVehicleId] = useState('PERSONAL');
+      const [historyTab, setHistoryTab] = useState('TRIPS');
+      const [dataLoaded, setDataLoaded] = useState(false);
+      const [firstRun, setFirstRun] = useState(false);
+      const [showVersionInfo, setShowVersionInfo] = useState(false);
+      const [showUpdatePrompt, setShowUpdatePrompt] = useState(false);
+      const [newVersion, setNewVersion] = useState('');
+      const [updateChangelog, setUpdateChangelog] = useState([]);
+      const [resumeTripData, setResumeTripData] = useState(null);
+      const [resumeTripModal, setResumeTripModal] = useState(false);
+      const [error, setError] = useState(null);
+    
+      // Odómetros inicializados en 0 como solicitado
+      const [vehicleOdometers, setVehicleOdometers] = useState({
+        PERSONAL: 0,
+        COMPANY_FUEL: 0,
+        COMPANY_ELECTRIC: 0,
+        OTHER: 0
+      });
+    
+      const [lastLocation, setLastLocation] = useState('Casa');
+      const [trips, setTrips] = useState([]);
+      const [expenses, setExpenses] = useState([]);
+      const [visits, setVisits] = useState([]);
+      const [dashboardVehicleId, setDashboardVehicleId] = useState('PERSONAL');
+    
+      // Estado para viaje actual mejorado
+      const [currentTrip, setCurrentTrip] = useState({
+        startTime: null,
+        vehicle: 'PERSONAL',
+        origin: '',
+        destination: '',
+        startOdometer: 0,
+        tripExpenses: [],
+        status: 'IDLE' // IDLE, STARTING, ACTIVE, ENDING
+      });
+    
+      // Modales
+      const [showLocationSelector, setShowLocationSelector] = useState(false);
+      const [showOdometerEditor, setShowOdometerEditor] = useState(false);
+      const [showVehicleSelector, setShowVehicleSelector] = useState(false);
+      const [showExpenseCategorySelector, setShowExpenseCategorySelector] = useState(false);
+      const [showDestinationModal, setShowDestinationModal] = useState(false);
+      const [showSaveConfirmation, setShowSaveConfirmation] = useState(false);
+      const [showParkingAskModal, setShowParkingAskModal] = useState(false);
+      const [showChargeTypeModal, setShowChargeTypeModal] = useState(false);
+      const [editingTrip, setEditingTrip] = useState(null);
+      const [editingVisit, setEditingVisit] = useState(null);
+      const [locationSelectorMode, setLocationSelectorMode] = useState('ORIGIN');
+      const [textModalTitle, setTextModalTitle] = useState('Nombre del Cliente');
+      const [pendingStartData, setPendingStartData] = useState(null);
+    
+      // Configuraciones
+      const [vehicleConfigs, setVehicleConfigs] = useState({
+        PERSONAL: { tollPrice: OFFICIAL_RATES.toll, fuelPrice: OFFICIAL_RATES.fuel, kmValue: '15.00', currency: 'UYU' },
+        COMPANY_FUEL: { tollPrice: OFFICIAL_RATES.toll, fuelPrice: OFFICIAL_RATES.fuel, kmValue: '12.00', currency: 'UYU' },
+        COMPANY_ELECTRIC: { tollPrice: OFFICIAL_RATES.toll, fuelPriceAC: OFFICIAL_RATES.electricAC, fuelPriceDC: OFFICIAL_RATES.electricDC, kmValue: '4.00', currency: 'UYU' },
+        OTHER: { tollPrice: OFFICIAL_RATES.toll, fuelPrice: OFFICIAL_RATES.fuel, kmValue: '20.00', currency: 'UYU' }
+      });
+    
+      const [editingVehicleId, setEditingVehicleId] = useState('PERSONAL');
+    
+      // Gastos
+      const [expenseModalData, setExpenseModalData] = useState({
+        isOpen: false,
+        id: null,
+        category: '',
+        amount: '',
+        currency: 'UYU',
+        currencyType: 'UYU',
+        method: 'EFECTIVO',
+        type: 'Personal',
+        notes: '',
+        odometer: '',
+        volume: ''
+      });
+    
+      // Formularios
+      const [inputOdometer, setInputOdometer] = useState('');
+      const [inputDestination, setInputDestination] = useState('');
+    
+      // Alertas
+      const [showGapAlert, setShowGapAlert] = useState(false);
+      const [gapKm, setGapKm] = useState(0);
+    
+      // Tiempo
+      const [elapsedTime, setElapsedTime] = useState(0);
+      const timerRef = useRef(null);
+    
+      // --- CARGA INICIAL MEJORADA CON MANEJO DE ERRORES ---
+      useEffect(() => {
+        const initializeApp = async () => {
+          try {
+            console.log('Iniciando aplicación...');
+            
+            // Verificar si es primera ejecución
+            const hasInitialized = await dbHelper.get('settings', 'has_initialized');
+            if (!hasInitialized) {
+              setFirstRun(true);
+              await dbHelper.set('settings', 'has_initialized', { value: true, date: new Date().toISOString() });
+            }
+            
+            // Cargar datos existentes
+            const [
+              savedTrips,
+              savedExpenses,
+              savedVisits,
+              savedOdometers,
+              savedConfigs,
+              savedLocation,
+              savedCurrentTrip
+            ] = await Promise.all([
+              dbHelper.getAll('trips'),
+              dbHelper.getAll('expenses'),
+              dbHelper.getAll('visits'),
+              dbHelper.get('settings', 'odometers'),
+              dbHelper.get('settings', 'configs'),
+              dbHelper.get('settings', 'last_location'),
+              dbHelper.get('settings', 'current_trip')
+            ]);
+            
+            // Restaurar estado
+            if (savedTrips) setTrips(savedTrips);
+            if (savedExpenses) setExpenses(savedExpenses);
+            if (savedVisits) setVisits(savedVisits);
+            if (savedOdometers) setVehicleOdometers(savedOdometers);
+            else setVehicleOdometers({ PERSONAL: 0, COMPANY_FUEL: 0, COMPANY_ELECTRIC: 0, OTHER: 0 });
+            
+            if (savedConfigs) setVehicleConfigs(savedConfigs);
+            if (savedLocation) setLastLocation(savedLocation);
+            
+            // Verificar si hay un viaje en curso guardado
+            if (savedCurrentTrip && savedCurrentTrip.startTime) {
+              const tripAge = Date.now() - new Date(savedCurrentTrip.startTime).getTime();
+              if (tripAge < 24 * 60 * 60 * 1000) { // Menos de 24 horas
+                setResumeTripData(savedCurrentTrip);
+                setResumeTripModal(true);
+              } else {
+                // Limpiar viaje obsoleto
+                await dbHelper.set('settings', 'current_trip', null);
+              }
+            }
+            
+            setDataLoaded(true);
+            setAppState('IDLE');
+            
+          } catch (error) {
+            console.error("Error initializing app:", error);
+            setError(error.message || 'Error de inicialización');
+            // Intentar con valores por defecto
+            setVehicleOdometers({ PERSONAL: 0, COMPANY_FUEL: 0, COMPANY_ELECTRIC: 0, OTHER: 0 });
+            setDataLoaded(true);
+            setAppState('IDLE');
+          }
+        };
+        
+        initializeApp();
+      }, []);
+    
+      // --- RENDERIZADO MEJORADO ---
+      if (appState === 'LOADING') {
+        return (
+          <div className="flex flex-col items-center justify-center h-screen bg-slate-50">
+            <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mb-6 animate-pulse-slow">
+              <Icon name="Car" size={32} className="text-white"/>
+            </div>
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">Cargando Asistente de Viaje</h2>
+            <p className="text-slate-500 text-sm">v{APP_VERSION}</p>
+            <div className="mt-8 w-48 h-2 bg-slate-200 rounded-full overflow-hidden">
+              <div className="h-full bg-blue-500 animate-[loading_1.5s_ease-in-out_infinite]" style={{ width: '30%' }}></div>
+            </div>
+          </div>
+        );
+      }
+      
+      return (
+        <div className="flex flex-col h-screen w-full max-w-md mx-auto shadow-2xl overflow-hidden font-sans relative bg-slate-100">
+          <VersionInfoModal isOpen={showVersionInfo} onClose={() => setShowVersionInfo(false)} />
+          
+          {/* Vista principal */}
+          <div className="flex flex-col h-full bg-slate-100">
+            <div className="bg-slate-800 text-white p-6 rounded-b-[2rem] shadow-xl z-10">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h1 className="text-xl font-bold">Bitácora de Viaje</h1>
+                  <p className="text-slate-400 text-xs">v{APP_VERSION}</p>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => setShowVersionInfo(true)} className="bg-slate-700 p-2 rounded-full hover:bg-slate-600 transition-colors" title="Información de versión">
+                    <Icon name="Info" size={20}/>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex-1 flex flex-col items-center justify-center">
+              <div className="text-center p-8">
+                <h2 className="text-2xl font-bold text-slate-800 mb-4">✅ Aplicación Cargada Exitosamente</h2>
+                <p className="text-slate-600 mb-6">
+                  Versión: {APP_VERSION}<br/>
+                  Modo Offline: ✅ Activo<br/>
+                  Almacenamiento: IndexedDB
+                </p>
+                <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 mb-6">
+                  <p className="text-blue-700 font-medium">
+                    🚀 La aplicación está lista para funcionar completamente offline.
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setAppState('IDLE')}
+                  className="bg-blue-600 text-white py-3 px-6 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg"
+                >
+                  Ir a Inicio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+    
+    // --- INICIALIZACIÓN ---
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+    `;
+    
+    // Ejecutar el código de la aplicación
+    const script = document.createElement('script');
+    script.textContent = appCode;
+    script.type = 'text/javascript';
+    document.body.appendChild(script);
+    
+    console.log('Aplicación cargada exitosamente');
+  } catch (error) {
+    console.error('Error cargando la aplicación:', error);
+    showAppError(`Error crítico: ${error.message}`);
+  }
 }
 </script>
-<script type="text/babel">
-const { useState, useEffect, useRef } = React;
-
-// ==========================================
-// CONFIGURACION DE LA APLICACIÓN PARA GITHUB PAGES
-// ==========================================
-const APP_VERSION = '1.0.44';
-
-// Detectar automáticamente la URL del repositorio en GitHub Pages
-const getGitHubRepoUrl = () => {
-const url = window.location.href;
-// Si estamos en GitHub Pages, extraer el repo path
-if (url.includes('github.io')) {
-const pathParts = url.split('/');
-const username = pathParts[2].split('.')[0]; // usuario.github.io
-const repoName = pathParts[3] || '';
-if (repoName) {
-return `https://raw.githubusercontent.com/${username}/${repoName}/main`;
-}
-}
-// Fallback para desarrollo local
-return './';
-};
-
-const GITHUB_REPO_URL = getGitHubRepoUrl();
-console.log('GitHub Repo URL:', GITHUB_REPO_URL);
-
-const DB_NAME = 'TripAssistantDB_v2';
-const DB_VERSION = 2;
-
-// ==========================================
-// SISTEMA DE ICONOS INTEGRADO
-// ==========================================
-const ICONS = {
-Play: <polygon points="5 3 19 12 5 21 5 3" />,
-MapPin: <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></>,
-DollarSign: <><line x1="12" x2="12" y1="2" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></>,
-Clock: <><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></>,
-Car: <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />,
-AlertTriangle: <><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><line x1="12" x2="12" y1="9" y2="13" /><line x1="12" x2="12.01" y1="17" y2="17" /></>,
-CheckCircle: <><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></>,
-Plus: <><line x1="12" x2="12" y1="5" y2="19" /><line x1="5" x2="19" y1="12" y2="12" /></>,
-Settings: <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />,
-Fuel: <><line x1="3" x2="15" y1="22" y2="22" /><line x1="4" x2="14" y1="9" y2="9" /><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18" /><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5" /></>,
-Utensils: <><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /><path d="M7 2v20" /><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /></>,
-Bed: <><path d="M2 4v16" /><path d="M2 8h18a2 2 0 0 1 2 2v10" /><path d="M2 17h20" /><path d="M6 8v9" /></>,
-Briefcase: <><rect width="20" height="14" x="2" y="7" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></>,
-CreditCard: <><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></>,
-Wallet: <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4" />,
-Landmark: <><line x1="3" x2="21" y1="22" y2="22" /><line x1="6" x2="6" y1="18" y2="11" /><line x1="10" x2="10" y1="18" y2="11" /><line x1="14" x2="14" y1="18" y2="11" /><line x1="18" x2="18" y1="18" y2="11" /><polygon points="12 2 20 7 4 7" /></>,
-X: <><path d="M18 6 6 18" /><path d="m6 6 12 12" /></>,
-Save: <><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" /><polyline points="17 21 17 13 7 13 7 21" /><polyline points="7 3 7 8 15 8" /></>,
-Zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />,
-Truck: <><rect width="16" height="13" x="1" y="6" rx="2" /><polygon points="17 10 22 11 22 17 17 17 17 10" /></>,
-Edit2: <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />,
-ChevronDown: <path d="m6 9 6 6 6-6" />,
-ShoppingBag: <><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></>,
-History: <><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12" /><path d="M3 3v9h9" /><path d="M12 7v5l4 2" /></>,
-User: <><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>,
-Users: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>,
-StickyNote: <><path d="M15.5 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z" /><path d="M15 3v6h6" /></>,
-ArrowRight: <path d="M5 12h14M12 5l7 7-7 7" />,
-Trash2: <><path d="M3 6h18" /><path d="M19 6v14c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" x2="10" y1="11" y2="17" /><line x1="14" x2="14" y1="11" y2="17" /></>,
-Calendar: <><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /></>,
-Home: <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />,
-Info: <><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="16" y2="12" /><line x1="12" x2="12.01" y1="8" y2="8" /></>,
-Download: <><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 13 7 8" /><line x1="12" x2="12" y1="2" y2="13" /></>,
-Cloud: <><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" /></>,
-ArrowUpRight: <><line x1="7" x2="17" y1="17" y2="7" /><polyline points="7 7 17 7 17 17" /></>,
-RefreshCw: <><path d="M23 4a10 10 0 0 1-19.92 1.23L3 4" /><path d="M1 4a10 10 0 0 0 19.92 1.23L21 4" /></>
-};
-
-const Icon = ({ name, size = 24, className = "", fill = "none" }) => {
-if (!ICONS[name]) return null;
-return (
-<svg
-xmlns="http://www.w3.org/2000/svg"
-width={size}
-height={size}
-viewBox="0 0 24 24"
-fill={fill}
-stroke="currentColor"
-strokeWidth="2"
-strokeLinecap="round"
-strokeLinejoin="round"
-className={className}
->
-{ICONS[name]}
-</svg>
-);
-};
-
-// --- CONSTANTES ---
-const LOCATIONS_CONFIG = {
-'Cliente': { icon: 'User', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200' },
-'Trabajo': { icon: 'Briefcase', color: 'text-slate-600', bg: 'bg-slate-50', border: 'border-slate-200' },
-'Casa': { icon: 'Home', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-200' },
-'Restaurante': { icon: 'Utensils', color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-200' },
-'Hotel': { icon: 'Bed', color: 'text-violet-600', bg: 'bg-violet-50', border: 'border-violet-200' },
-'Otra': { icon: 'MapPin', color: 'text-gray-600', bg: 'bg-gray-50', border: 'border-gray-200' }
-};
-
-const LOCATIONS_PRESETS = Object.keys(LOCATIONS_CONFIG);
-
-const EXPENSE_CATEGORIES = {
-FOOD: ['Desayuno', 'Almuerzo', 'Merienda', 'Cena', 'Refrigerio'],
-LODGING: ['Alojamiento'],
-TRIP: ['Peaje', 'Estacionamiento', 'Carga Combustible', 'Carga Eléctrica'],
-OTHER: ['Otros']
-};
-
-const PAYMENT_METHODS = [
-{ id: 'EFECTIVO', label: 'Efectivo', icon: 'Wallet' },
-{ id: 'DEBITO', label: 'Débito', icon: 'CreditCard' },
-{ id: 'CREDITO', label: 'Crédito', icon: 'CreditCard' },
-{ id: 'TRANSFERENCIA', label: 'Transferencia', icon: 'Landmark' },
-];
-
-const CURRENCIES = ['UYU', 'U$D', 'Otro'];
-
-const EXPENSE_TYPES = ['Personal', 'Empresa'];
-
-const VEHICLE_TYPES = [
-{ id: 'PERSONAL', label: 'Personal', short: 'Personal', icon: 'Car', type: 'fuel' },
-{ id: 'COMPANY_FUEL', label: 'Empresa Combustible', short: 'Emp. Comb.', icon: 'Truck', type: 'fuel' },
-{ id: 'COMPANY_ELECTRIC', label: 'Empresa Eléctrico', short: 'Emp. Elec.', icon: 'Zap', type: 'electric' },
-{ id: 'OTHER', label: 'Otros', short: 'Otros', icon: 'Car', type: 'fuel' },
-];
-
-// TARIFAS OFICIALES URUGUAY 2026
-const OFFICIAL_RATES = {
-toll: '162.00',
-fuel: '78.02', // Super 95
-electricAC: '9.50',
-electricDC: '10.80'
-};
-
-// --- INDEXEDDB HELPERS MEJORADOS ---
-const dbHelper = {
-init: () => {
-return new Promise((resolve, reject) => {
-const request = indexedDB.open(DB_NAME, DB_VERSION);
-  
-request.onupgradeneeded = (event) => {
-const db = event.target.result;
-if (!db.objectStoreNames.contains('app_data')) {
-db.createObjectStore('app_data');
-}
-// Nuevas tablas para mejor organización
-if (!db.objectStoreNames.contains('trips')) {
-db.createObjectStore('trips', { keyPath: 'id' });
-}
-if (!db.objectStoreNames.contains('expenses')) {
-db.createObjectStore('expenses', { keyPath: 'id' });
-}
-if (!db.objectStoreNames.contains('visits')) {
-db.createObjectStore('visits', { keyPath: 'id' });
-}
-if (!db.objectStoreNames.contains('settings')) {
-db.createObjectStore('settings', { keyPath: 'key' });
-}
-};
-
-request.onsuccess = (event) => resolve(event.target.result);
-request.onerror = (event) => reject(event.target.error);
-});
-},
-
-get: async (storeName, key) => {
-try {
-const db = await dbHelper.init();
-return new Promise((resolve, reject) => {
-const transaction = db.transaction([storeName], 'readonly');
-const store = transaction.objectStore(storeName);
-const request = store.get(key);
-  
-request.onsuccess = () => resolve(request.result);
-request.onerror = () => reject(request.error);
-});
-} catch (e) {
-console.warn(`DB Get Error for ${storeName}:${key}:`, e);
-return null;
-}
-},
-
-set: async (storeName, key, value) => {
-try {
-const db = await dbHelper.init();
-return new Promise((resolve, reject) => {
-const transaction = db.transaction([storeName], 'readwrite');
-const store = transaction.objectStore(storeName);
-const request = store.put(value, key);
-  
-request.onsuccess = () => resolve();
-request.onerror = () => reject(request.error);
-});
-} catch (e) {
-console.error(`DB Set Error for ${storeName}:${key}:`, e);
-}
-},
-
-getAll: async (storeName) => {
-try {
-const db = await dbHelper.init();
-return new Promise((resolve, reject) => {
-const transaction = db.transaction([storeName], 'readonly');
-const store = transaction.objectStore(storeName);
-const request = store.getAll();
-  
-request.onsuccess = () => resolve(request.result || []);
-request.onerror = () => reject(request.error);
-});
-} catch (e) {
-console.warn(`DB GetAll Error for ${storeName}:`, e);
-return [];
-}
-},
-
-delete: async (storeName, key) => {
-try {
-const db = await dbHelper.init();
-return new Promise((resolve, reject) => {
-const transaction = db.transaction([storeName], 'readwrite');
-const store = transaction.objectStore(storeName);
-const request = store.delete(key);
-  
-request.onsuccess = () => resolve();
-request.onerror = () => reject(request.error);
-});
-} catch (e) {
-console.error(`DB Delete Error for ${storeName}:${key}:`, e);
-}
-}
-};
-
-// --- HELPERS MEJORADOS ---
-const getVehicleInfo = (id) => VEHICLE_TYPES.find(v => v.id === id) || VEHICLE_TYPES[0];
-
-const formatMoney = (amount) => {
-return Number(amount || 0).toFixed(2);
-};
-
-const formatDistance = (distance) => {
-return Math.max(0, parseInt(distance || 0)).toLocaleString();
-};
-
-const formatDate = (date) => {
-if (!date) return '';
-const d = new Date(date);
-return d.toLocaleDateString('es-ES', {
-day: '2-digit',
-month: '2-digit',
-year: 'numeric'
-});
-};
-
-const formatTimeOnly = (date) => {
-if (!date) return '';
-const d = new Date(date);
-return d.toLocaleTimeString('es-ES', {
-hour: '2-digit',
-minute: '2-digit'
-});
-};
-
-const formatTime = (seconds) => {
-const mins = Math.floor(seconds / 60);
-const secs = seconds % 60;
-return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-};
-
-// --- COMPONENTES MEJORADOS ---
-
-// Modal de Información de Versión
-const VersionInfoModal = ({ isOpen, onClose }) => {
-if (!isOpen) return null;
-  
-const appInfo = {
-version: APP_VERSION,
-lastUpdate: new Date().toLocaleDateString('es-ES'),
-offline: true,
-storage: 'IndexedDB',
-githubUrl: GITHUB_REPO_URL.replace('raw.githubusercontent.com', 'github.com').replace('/main', '')
-};
-  
-return (
-<div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-[110] flex items-center justify-center p-4 animate-fade-in">
-<div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-<div className="flex justify-between items-center mb-6">
-<div className="flex items-center">
-<Icon name="Info" size={28} className="text-blue-600 mr-3"/>
-<h3 className="text-xl font-bold text-slate-800">Información de la Aplicación</h3>
-</div>
-<button onClick={onClose} className="p-2 bg-slate-100 rounded-full hover:bg-slate-200">
-<Icon name="X" size={20} className="text-slate-500"/>
-</button>
-</div>
-  
-<div className="space-y-4">
-<div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-<div className="flex justify-between">
-<span className="font-medium text-slate-600">Versión actual:</span>
-<span className="font-bold text-blue-600 text-lg">{appInfo.version}</span>
-</div>
-<div className="flex justify-between mt-2">
-<span className="font-medium text-slate-600">Última actualización:</span>
-<span className="font-medium text-slate-500">{appInfo.lastUpdate}</span>
-</div>
-</div>
-  
-<div className="grid grid-cols-2 gap-3">
-<div className="bg-slate-50 p-3 rounded-lg text-center">
-<Icon name="Cloud" size={24} className="text-slate-400 mb-2 mx-auto"/>
-<span className="text-xs font-bold text-slate-600">Modo Offline</span>
-<div className="mt-1 font-bold text-green-600 text-sm">✅ Activo</div>
-</div>
-<div className="bg-slate-50 p-3 rounded-lg text-center">
-<Icon name="Save" size={24} className="text-slate-400 mb-2 mx-auto"/>
-<span className="text-xs font-bold text-slate-600">Almacenamiento</span>
-<div className="mt-1 font-bold text-slate-700 text-sm">IndexedDB</div>
-</div>
-</div>
-  
-<div className="bg-amber-50 p-4 rounded-xl border border-amber-100 mt-4">
-<p className="text-xs text-amber-700 mb-3">
-Esta aplicación funciona completamente offline. Tus datos se guardan localmente en tu dispositivo y están disponibles sin conexión a internet.
-</p>
-<div className="flex items-center justify-center">
-<Icon name="ArrowUpRight" size={16} className="text-amber-500 mr-1"/>
-<a href={appInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="font-bold text-amber-700 hover:text-amber-800 text-sm">
-Repositorio GitHub
-</a>
-</div>
-</div>
-</div>
-  
-<button 
-onClick={onClose}
-className="mt-6 w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
->
-Cerrar
-</button>
-</div>
-</div>
-);
-};
-
-// Modal de Actualización de Versión Real
-const UpdatePromptModal = ({ isOpen, onClose, onConfirm, newVersion, changelog }) => {
-if (!isOpen) return null;
-  
-return (
-<div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-fade-in">
-<div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-<div className="flex flex-col items-center text-center">
-<div className="bg-blue-100 p-3 rounded-full mb-4">
-<Icon name="Download" size={32} className="text-blue-600"/>
-</div>
-<h3 className="text-xl font-bold text-slate-800 mb-2">Nueva Versión Disponible</h3>
-<p className="text-slate-500 mb-4 text-sm">
-Hay una nueva versión disponible: <span class="font-bold text-blue-600">v{newVersion}</span>
-</p>
-  
-<div className="w-full bg-slate-50 rounded-xl p-4 mb-4 max-h-48 overflow-y-auto custom-scrollbar">
-<h4 className="font-bold text-slate-700 mb-2 text-sm">Novedades:</h4>
-<ul className="list-disc pl-4 space-y-1 text-xs text-slate-600">
-{changelog && changelog.length > 0 ? changelog.map((item, index) => (
-<li key={index}>{item}</li>
-)) : <li>Sin cambios especificados</li>}
-</ul>
-</div>
-  
-<div className="w-full flex gap-3">
-<button onClick={onClose} className="flex-1 py-3 rounded-xl font-bold text-slate-500 bg-slate-100 hover:bg-slate-200 transition-colors">
-Más tarde
-</button>
-<button onClick={onConfirm} className="flex-1 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 transition-all shadow-lg shadow-blue-200 active:scale-95">
-Actualizar Ahora
-</button>
-</div>
-  
-<p className="text-xs text-slate-400 mt-4 text-center">
-Al actualizar, se mantendrán tus datos y configuraciones actuales.
-</p>
-</div>
-</div>
-</div>
-);
-};
-
-// Modal de Bienvenida para Primera Ejecución
-const FirstRunModal = ({ isOpen, onClose }) => {
-if (!isOpen) return null;
-  
-return (
-<div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-[95] flex items-center justify-center p-4 animate-fade-in">
-<div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-<div className="flex flex-col items-center text-center">
-<div className="bg-gradient-to-r from-blue-500 to-emerald-500 p-4 rounded-full mb-4">
-<Icon name="Car" size={32} className="text-white"/>
-</div>
-<h3 className="text-xl font-bold text-slate-800 mb-2">¡Bienvenido a Asistente de Viaje!</h3>
-<p className="text-slate-500 mb-6 text-sm">
-Esta es tu primera ejecución. La aplicación está lista para funcionar completamente offline.
-</p>
-  
-<div className="space-y-3 mb-6">
-<div className="flex items-start bg-slate-50 p-3 rounded-lg">
-<Icon name="CheckCircle" size={18} className="text-emerald-500 mt-1 mr-2"/>
-<p className="text-sm text-slate-700">Tus datos se guardan automáticamente en tu dispositivo</p>
-</div>
-<div className="flex items-start bg-slate-50 p-3 rounded-lg">
-<Icon name="Zap" size={18} className="text-blue-500 mt-1 mr-2"/>
-<p className="text-sm text-slate-700">Sin necesidad de conexión a internet después de la primera carga</p>
-</div>
-<div className="flex items-start bg-slate-50 p-3 rounded-lg">
-<Icon name="Settings" size={18} className="text-amber-500 mt-1 mr-2"/>
-<p className="text-sm text-slate-700">Configura tus tarifas y preferencias en el menú de ajustes</p>
-</div>
-</div>
-  
-<button 
-onClick={onClose}
-className="w-full bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-3 rounded-xl font-bold hover:from-blue-700 hover:to-emerald-700 transition-all shadow-lg shadow-blue-200"
->
-Comenzar
-</button>
-</div>
-</div>
-</div>
-);
-};
-
-// Componente de Detección de Viaje en Curso
-const ResumeTripModal = ({ isOpen, onClose, onContinue, onCancel, tripData }) => {
-if (!isOpen || !tripData) return null;
-  
-const timeSinceStart = Date.now() - new Date(tripData.startTime).getTime();
-const hours = Math.floor(timeSinceStart / (1000 * 60 * 60));
-const minutes = Math.floor((timeSinceStart % (1000 * 60 * 60)) / (1000 * 60));
-  
-return (
-<div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-[95] flex items-center justify-center p-4 animate-fade-in">
-<div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-<div className="flex flex-col items-center text-center">
-<div className="bg-blue-100 p-3 rounded-full mb-4">
-<Icon name="MapPin" size={32} className="text-blue-600"/>
-</div>
-<h3 className="text-xl font-bold text-slate-800 mb-2">Viaje en Curso Detectado</h3>
-<p className="text-slate-500 mb-4 text-sm">
-Se encontró un viaje que comenzó hace {hours}h {minutes}m. ¿Deseas continuar?
-</p>
-  
-<div className="w-full bg-slate-50 rounded-xl p-4 mb-6 border border-slate-100">
-<div className="flex justify-between mb-2">
-<span className="font-medium text-slate-600">Origen:</span>
-<span className="font-medium text-slate-800">{tripData.origin || 'Desconocido'}</span>
-</div>
-<div className="flex justify-between">
-<span className="font-medium text-slate-600">Vehículo:</span>
-<span className="font-medium text-blue-600">{getVehicleInfo(tripData.vehicle).label}</span>
-</div>
-</div>
-  
-<div className="w-full flex gap-3">
-<button 
-onClick={onCancel} 
-className="flex-1 py-3 rounded-xl font-bold text-slate-500 bg-slate-100 hover:bg-slate-200 transition-colors"
->
-Cancelar Este Viaje
-</button>
-<button 
-onClick={onContinue} 
-className="flex-1 py-3 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
->
-Continuar Viaje
-</button>
-</div>
-</div>
-</div>
-</div>
-);
-};
-
-// Componente App Principal con Todas las Mejoras
-const App = () => {
-// --- ESTADO MEJORADO ---
-const [appState, setAppState] = useState('LOADING');
-const [defaultVehicleId, setDefaultVehicleId] = useState('PERSONAL');
-const [historyTab, setHistoryTab] = useState('TRIPS');
-const [dataLoaded, setDataLoaded] = useState(false);
-const [firstRun, setFirstRun] = useState(false);
-const [showVersionInfo, setShowVersionInfo] = useState(false);
-const [showUpdatePrompt, setShowUpdatePrompt] = useState(false);
-const [newVersion, setNewVersion] = useState('');
-const [updateChangelog, setUpdateChangelog] = useState([]);
-const [resumeTripData, setResumeTripData] = useState(null);
-const [resumeTripModal, setResumeTripModal] = useState(false);
-const [error, setError] = useState(null);
-
-// Odómetros inicializados en 0 como solicitado
-const [vehicleOdometers, setVehicleOdometers] = useState({
-PERSONAL: 0,
-COMPANY_FUEL: 0,
-COMPANY_ELECTRIC: 0,
-OTHER: 0
-});
-
-const [lastLocation, setLastLocation] = useState('Casa');
-const [trips, setTrips] = useState([]);
-const [expenses, setExpenses] = useState([]);
-const [visits, setVisits] = useState([]);
-const [dashboardVehicleId, setDashboardVehicleId] = useState('PERSONAL');
-
-// Estado para viaje actual mejorado
-const [currentTrip, setCurrentTrip] = useState({
-startTime: null,
-vehicle: 'PERSONAL',
-origin: '',
-destination: '',
-startOdometer: 0,
-tripExpenses: [],
-status: 'IDLE' // IDLE, STARTING, ACTIVE, ENDING
-});
-
-// Modales (mantenidos pero mejorados)
-const [showLocationSelector, setShowLocationSelector] = useState(false);
-const [showOdometerEditor, setShowOdometerEditor] = useState(false);
-const [showVehicleSelector, setShowVehicleSelector] = useState(false);
-const [showExpenseCategorySelector, setShowExpenseCategorySelector] = useState(false);
-const [showDestinationModal, setShowDestinationModal] = useState(false);
-const [showSaveConfirmation, setShowSaveConfirmation] = useState(false);
-const [showParkingAskModal, setShowParkingAskModal] = useState(false);
-const [showChargeTypeModal, setShowChargeTypeModal] = useState(false);
-const [editingTrip, setEditingTrip] = useState(null);
-const [editingVisit, setEditingVisit] = useState(null);
-const [locationSelectorMode, setLocationSelectorMode] = useState('ORIGIN');
-const [textModalTitle, setTextModalTitle] = useState('Nombre del Cliente');
-const [pendingStartData, setPendingStartData] = useState(null);
-
-// Configuraciones
-const [vehicleConfigs, setVehicleConfigs] = useState({
-PERSONAL: { tollPrice: OFFICIAL_RATES.toll, fuelPrice: OFFICIAL_RATES.fuel, kmValue: '15.00', currency: 'UYU' },
-COMPANY_FUEL: { tollPrice: OFFICIAL_RATES.toll, fuelPrice: OFFICIAL_RATES.fuel, kmValue: '12.00', currency: 'UYU' },
-COMPANY_ELECTRIC: { tollPrice: OFFICIAL_RATES.toll, fuelPriceAC: OFFICIAL_RATES.electricAC, fuelPriceDC: OFFICIAL_RATES.electricDC, kmValue: '4.00', currency: 'UYU' },
-OTHER: { tollPrice: OFFICIAL_RATES.toll, fuelPrice: OFFICIAL_RATES.fuel, kmValue: '20.00', currency: 'UYU' }
-});
-
-const [editingVehicleId, setEditingVehicleId] = useState('PERSONAL');
-
-// Gastos
-const [expenseModalData, setExpenseModalData] = useState({
-isOpen: false,
-id: null,
-category: '',
-amount: '',
-currency: 'UYU',
-currencyType: 'UYU',
-method: 'EFECTIVO',
-type: 'Personal',
-notes: '',
-odometer: '',
-volume: ''
-});
-
-// Formularios
-const [inputOdometer, setInputOdometer] = useState('');
-const [inputDestination, setInputDestination] = useState('');
-
-// Alertas
-const [showGapAlert, setShowGapAlert] = useState(false);
-const [gapKm, setGapKm] = useState(0);
-
-// Tiempo
-const [elapsedTime, setElapsedTime] = useState(0);
-const timerRef = useRef(null);
-
-// --- CARGA INICIAL MEJORADA CON MANEJO DE ERRORES ---
-useEffect(() => {
-const initializeApp = async () => {
-try {
-console.log('Iniciando aplicación...');
-  
-// Verificar si es primera ejecución
-const hasInitialized = await dbHelper.get('settings', 'has_initialized');
-if (!hasInitialized) {
-setFirstRun(true);
-await dbHelper.set('settings', 'has_initialized', { value: true, date: new Date().toISOString() });
-}
-  
-// Cargar datos existentes
-const [
-savedTrips,
-savedExpenses,
-savedVisits,
-savedOdometers,
-savedConfigs,
-savedLocation,
-savedCurrentTrip
-] = await Promise.all([
-dbHelper.getAll('trips'),
-dbHelper.getAll('expenses'),
-dbHelper.getAll('visits'),
-dbHelper.get('settings', 'odometers'),
-dbHelper.get('settings', 'configs'),
-dbHelper.get('settings', 'last_location'),
-dbHelper.get('settings', 'current_trip')
-]);
-  
-// Restaurar estado
-if (savedTrips) setTrips(savedTrips);
-if (savedExpenses) setExpenses(savedExpenses);
-if (savedVisits) setVisits(savedVisits);
-if (savedOdometers) setVehicleOdometers(savedOdometers);
-else setVehicleOdometers({ PERSONAL: 0, COMPANY_FUEL: 0, COMPANY_ELECTRIC: 0, OTHER: 0 });
-  
-if (savedConfigs) setVehicleConfigs(savedConfigs);
-if (savedLocation) setLastLocation(savedLocation);
-  
-// Verificar si hay un viaje en curso guardado
-if (savedCurrentTrip && savedCurrentTrip.startTime) {
-const tripAge = Date.now() - new Date(savedCurrentTrip.startTime).getTime();
-if (tripAge < 24 * 60 * 60 * 1000) { // Menos de 24 horas
-setResumeTripData(savedCurrentTrip);
-setResumeTripModal(true);
-} else {
-// Limpiar viaje obsoleto
-await dbHelper.set('settings', 'current_trip', null);
-}
-}
-  
-// Verificar actualizaciones después de cargar datos
-setTimeout(async () => {
-try {
-await checkForUpdates();
-} catch (updateError) {
-console.warn('Error checking updates (non-fatal):', updateError);
-}
-}, 2000);
-  
-setDataLoaded(true);
-setAppState('IDLE');
-  
-} catch (error) {
-console.error("Error initializing app:", error);
-setError(error.message || 'Error de inicialización');
-// Intentar con valores por defecto
-setVehicleOdometers({ PERSONAL: 0, COMPANY_FUEL: 0, COMPANY_ELECTRIC: 0, OTHER: 0 });
-setDataLoaded(true);
-setAppState('IDLE');
-}
-};
-  
-initializeApp();
-}, []);
-
-// --- PERSISTENCIA MEJORADA ---
-useEffect(() => {
-if (!dataLoaded) return;
-  
-// Guardar viaje actual si está activo
-if (['STARTING', 'ACTIVE', 'ENDING'].includes(appState)) {
-const tripToSave = {
-...currentTrip,
-status: appState
-};
-dbHelper.set('settings', 'current_trip', tripToSave).catch(console.error);
-} else {
-// Limpiar viaje actual si no está en curso
-dbHelper.set('settings', 'current_trip', null).catch(console.error);
-}
-}, [currentTrip, appState, dataLoaded]);
-
-useEffect(() => { if(dataLoaded) dbHelper.set('settings', 'odometers', vehicleOdometers); }, [vehicleOdometers, dataLoaded]);
-useEffect(() => { if(dataLoaded) dbHelper.set('settings', 'last_location', lastLocation); }, [lastLocation, dataLoaded]);
-useEffect(() => { if(dataLoaded) dbHelper.set('settings', 'configs', vehicleConfigs); }, [vehicleConfigs, dataLoaded]);
-
-// --- GUARDAR DATOS EN TABLAS ESPECÍFICAS ---
-useEffect(() => {
-if (!dataLoaded) return;
-trips.forEach(trip => dbHelper.set('trips', trip.id, trip).catch(console.error));
-}, [trips, dataLoaded]);
-
-useEffect(() => {
-if (!dataLoaded) return;
-expenses.forEach(expense => dbHelper.set('expenses', expense.id, expense).catch(console.error));
-}, [expenses, dataLoaded]);
-
-useEffect(() => {
-if (!dataLoaded) return;
-visits.forEach(visit => dbHelper.set('visits', visit.id, visit).catch(console.error));
-}, [visits, dataLoaded]);
-
-// --- TEMPORIZADOR MEJORADO ---
-useEffect(() => {
-if (timerRef.current) clearInterval(timerRef.current);
-  
-if (appState === 'ACTIVE' && currentTrip.startTime) {
-setElapsedTime(Math.floor((Date.now() - new Date(currentTrip.startTime).getTime()) / 1000));
-  
-timerRef.current = setInterval(() => {
-setElapsedTime(prev => prev + 1);
-}, 1000);
-}
-  
-return () => {
-if (timerRef.current) clearInterval(timerRef.current);
-};
-}, [appState, currentTrip.startTime]);
-
-// --- SISTEMA DE ACTUALIZACIONES MEJORADO ---
-const checkForUpdates = async () => {
-try {
-console.log("Checking for updates...");
-  
-// Construir URL para version.json
-const versionUrl = GITHUB_REPO_URL.endsWith('/') 
-? `${GITHUB_REPO_URL}version.json?timestamp=${Date.now()}`
-: `${GITHUB_REPO_URL}/version.json?timestamp=${Date.now()}`;
-  
-console.log('Fetching version from:', versionUrl);
-  
-const response = await fetch(versionUrl, {
-cache: 'no-cache',
-mode: 'cors'
-});
-  
-console.log('Response status:', response.status);
-  
-if (!response.ok) {
-console.warn('No se pudo obtener version.json, status:', response.status);
-return;
-}
-  
-const remoteData = await response.json();
-console.log('Remote version data:', remoteData);
-  
-if (remoteData.version && remoteData.version > APP_VERSION) {
-setNewVersion(remoteData.version);
-setUpdateChangelog(remoteData.changelog || ['Nuevas mejoras y correcciones']);
-setShowUpdatePrompt(true);
-}
-} catch (error) {
-console.warn('No se pudo verificar actualizaciones:', error);
-// No mostrar error al usuario, solo loguear
-}
-};
-
-// --- MANEJADORES MEJORADOS ---
-const handleResumeTrip = () => {
-if (resumeTripData) {
-setCurrentTrip(resumeTripData);
-setAppState(resumeTripData.status || 'ACTIVE');
-setResumeTripModal(false);
-setResumeTripData(null);
-}
-};
-
-const handleCancelResumeTrip = async () => {
-await dbHelper.set('settings', 'current_trip', null);
-setResumeTripModal(false);
-setResumeTripData(null);
-};
-
-const handleUpdateApp = async () => {
-try {
-// Construir URL para index.html
-const indexUrl = GITHUB_REPO_URL.endsWith('/') 
-? `${GITHUB_REPO_URL}index.html?t=${Date.now()}`
-: `${GITHUB_REPO_URL}/index.html?t=${Date.now()}`;
-  
-const response = await fetch(indexUrl);
-if (!response.ok) throw new Error('Failed to fetch new version');
-  
-const newHtml = await response.text();
-  
-// Crear un blob y URL para la nueva versión
-const blob = new Blob([newHtml], { type: 'text/html' });
-const url = URL.createObjectURL(blob);
-  
-// Abrir la nueva versión en una nueva pestaña
-window.open(url, '_blank');
-  
-// Cerrar la actual después de un delay
-setTimeout(() => {
-if (confirm('Se ha abierto la nueva versión en otra pestaña. ¿Deseas cerrar esta ventana?')) {
-window.close();
-}
-}, 3000);
-  
-} catch (error) {
-console.error('Error updating app:', error);
-alert('Error al actualizar. Por favor, actualiza manualmente desde GitHub.');
-}
-};
-
-const handleStartPress = () => {
-const currentOdo = vehicleOdometers[dashboardVehicleId];
-setInputOdometer(currentOdo.toString());
-setInputDestination('');
-setCurrentTrip({
-startTime: null,
-vehicle: dashboardVehicleId,
-origin: lastLocation,
-destination: '',
-startOdometer: 0,
-tripExpenses: [],
-status: 'STARTING'
-});
-setAppState('STARTING');
-};
-
-const confirmStartTrip = (destinationOverride = undefined) => {
-const inputOdoVal = parseInt(inputOdometer) || vehicleOdometers[currentTrip.vehicle];
-const currentVehicleOdo = vehicleOdometers[currentTrip.vehicle];
-  
-if (inputOdoVal > currentVehicleOdo) {
-setGapKm(inputOdoVal - currentVehicleOdo);
-setShowGapAlert(true);
-if (destinationOverride) setInputDestination(destinationOverride);
-return;
-}
-  
-// Parking Check Logic mejorado
-const isOriginClient = lastLocation.toLowerCase().includes('cliente') || ['Otra', 'Otro'].includes(lastLocation);
-const hasParkingExpense = currentTrip.tripExpenses.some(e => e.category === 'Estacionamiento');
-  
-if (isOriginClient && !hasParkingExpense) {
-setPendingStartData({ odo: inputOdoVal, dest: destinationOverride });
-setShowParkingAskModal(true);
-return;
-}
-  
-startTripProcess(inputOdoVal, destinationOverride);
-};
-
-const startTripProcess = (startOdo, destinationOverride = undefined) => {
-setCurrentTrip(prev => ({
-...prev,
-startTime: new Date(),
-origin: lastLocation,
-destination: destinationOverride !== undefined ? destinationOverride : inputDestination,
-startOdometer: startOdo,
-status: 'ACTIVE'
-}));
-setAppState('ACTIVE');
-};
-
-const handleArrivePress = () => {
-const currentVehicleOdo = vehicleOdometers[currentTrip.vehicle] || 0;
-const startOdo = parseInt(currentTrip.startOdometer) || 0;
-const lastKnown = Math.max(currentVehicleOdo, startOdo);
-setInputOdometer((lastKnown + 1).toString());
-  
-if (currentTrip.destination) {
-setInputDestination(currentTrip.destination);
-}
-  
-setAppState('ENDING');
-};
-
-const confirmEndTrip = () => {
-const endOdo = parseInt(inputOdometer) || vehicleOdometers[currentTrip.vehicle] + 1;
-const distance = endOdo - currentTrip.startOdometer;
-const safeStartTime = currentTrip.startTime || new Date();
-const safeEndTime = new Date();
-  
-const newTrip = {
-id: Date.now(),
-date: safeEndTime.toISOString(),
-startTime: safeStartTime.toISOString(),
-endTime: safeEndTime.toISOString(),
-origin: currentTrip.origin || 'Desconocido',
-destination: inputDestination || 'Desconocido',
-distance: distance > 0 ? distance : 0,
-vehicle: currentTrip.vehicle,
-expenses: [...currentTrip.tripExpenses],
-status: 'CLOSED',
-startOdometer: currentTrip.startOdometer,
-endOdometer: endOdo
-};
-  
-setTrips(prev => [newTrip, ...prev]);
-  
-// Actualizar visitas si es necesario
-if (newTrip.origin.toLowerCase().includes('cliente')) {
-setVisits(prev => {
-const idx = prev.findIndex(v => v.client === newTrip.origin && v.status === 'OPEN');
-if (idx !== -1) {
-const updated = [...prev];
-updated[idx] = {
-...updated[idx],
-outboundTrip: newTrip,
-status: 'COMPLETED',
-endTime: safeEndTime.toISOString()
-};
-return updated;
-}
-return prev;
-});
-}
-  
-if (newTrip.destination.toLowerCase().includes('cliente')) {
-setVisits(prev => [{
-id: `visit_${Date.now()}`,
-client: newTrip.destination,
-date: safeEndTime.toISOString(),
-inboundTrip: newTrip,
-status: 'OPEN',
-startTime: safeEndTime.toISOString()
-}, ...prev]);
-}
-  
-// Actualizar odómetro
-setVehicleOdometers(prev => ({ ...prev, [currentTrip.vehicle]: endOdo }));
-  
-// Actualizar última ubicación
-setLastLocation(inputDestination);
-  
-// Limpiar viaje actual
-setCurrentTrip({
-startTime: null,
-vehicle: dashboardVehicleId,
-origin: '',
-destination: '',
-startOdometer: 0,
-tripExpenses: [],
-status: 'IDLE'
-});
-  
-// Limpiar estado
-setAppState('IDLE');
-};
-
-// --- LÓGICA DE GASTOS MEJORADA ---
-const openExpenseModal = (category, amountOverride = null, expenseToEdit = null) => {
-const currentVId = (appState === 'ACTIVE' || appState === 'ENDING') ? currentTrip.vehicle : dashboardVehicleId;
-const currentOdo = vehicleOdometers[currentVId] || 0;
-  
-if (expenseToEdit) {
-setExpenseModalData({
-isOpen: true,
-id: expenseToEdit.id,
-category: expenseToEdit.category,
-amount: formatMoney(expenseToEdit.amount),
-currency: expenseToEdit.currency,
-currencyType: ['UYU', 'U$D'].includes(expenseToEdit.currency) ? expenseToEdit.currency : 'Otro',
-method: expenseToEdit.method,
-type: expenseToEdit.type,
-notes: expenseToEdit.notes || '',
-odometer: expenseToEdit.odometer || currentOdo,
-volume: expenseToEdit.volume || ''
-});
-} else {
-const activeConfig = vehicleConfigs[currentVId] || vehicleConfigs['PERSONAL'];
-const isCompanyVehicle = currentVId.includes('COMPANY');
-  
-let defaults = { 
-amount: '', 
-currency: activeConfig.currency || 'UYU', 
-method: 'CREDITO', 
-type: isCompanyVehicle ? 'Empresa' : 'Personal' 
-};
-  
-if (category === 'Peaje') {
-defaults = { 
-amount: formatMoney(activeConfig.tollPrice || 162.00), 
-currency: activeConfig.currency || 'UYU', 
-method: 'DEBITO', 
-type: 'Personal' 
-};
-} else if (category === 'Carga Combustible') {
-defaults = { 
-amount: formatMoney(activeConfig.fuelPrice || 78.02), 
-currency: activeConfig.currency || 'UYU', 
-method: 'CREDITO', 
-type: 'Personal' 
-};
-} else if (category === 'Carga Eléctrica') {
-defaults = { 
-amount: amountOverride !== null ? amountOverride : formatMoney(activeConfig.fuelPriceAC || 9.50), 
-currency: activeConfig.currency || 'UYU', 
-method: 'CREDITO', 
-type: 'Personal' 
-};
-}
-  
-const isStandardCurrency = ['UYU', 'U$D'].includes(defaults.currency);
-  
-setExpenseModalData({
-isOpen: true,
-id: null,
-category,
-amount: defaults.amount,
-currency: defaults.currency,
-currencyType: isStandardCurrency ? defaults.currency : 'Otro',
-method: defaults.method,
-type: defaults.type,
-notes: '',
-odometer: currentOdo,
-volume: ''
-});
-}
-  
-setShowExpenseCategorySelector(false);
-};
-
-const confirmExpense = () => {
-const isCharge = ['Carga Combustible', 'Carga Eléctrica'].includes(expenseModalData.category);
-const currentVId = (appState === 'ACTIVE' || appState === 'ENDING') ? currentTrip.vehicle : dashboardVehicleId;
-  
-// Validar datos
-if (!expenseModalData.amount || parseFloat(expenseModalData.amount) <= 0) {
-alert('Por favor ingresa un monto válido');
-return;
-}
-  
-if (expenseModalData.currencyType === 'Otro' && !expenseModalData.currency.trim()) {
-alert('Por favor especifica el tipo de moneda');
-return;
-}
-  
-// Actualizar odómetro si es carga
-if (isCharge && expenseModalData.odometer) {
-const newOdo = parseInt(expenseModalData.odometer);
-if (!isNaN(newOdo) && newOdo > vehicleOdometers[currentVId]) {
-setVehicleOdometers(prev => ({ ...prev, [currentVId]: newOdo }));
-}
-}
-  
-const newExpense = {
-id: expenseModalData.id || Date.now(),
-date: new Date().toISOString(),
-category: expenseModalData.category,
-amount: parseFloat(expenseModalData.amount) || 0,
-currency: expenseModalData.currencyType === 'Otro' ? expenseModalData.currency : expenseM
+</body>
+</html>
