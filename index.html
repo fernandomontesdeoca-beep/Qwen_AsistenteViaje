@@ -30,6 +30,14 @@ touch-action: manipulation;
 overscroll-behavior-y: none;
 background-color: #f1f5f9;
 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+margin: 0;
+padding: 0;
+min-height: 100vh;
+}
+#root {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
 }
 input, textarea, select {
 user-select: text;
@@ -55,16 +63,6 @@ animation: slideUp 0.4s ease-out forwards;
 from { transform: translateY(100%); opacity: 0; }
 to { transform: translateY(0); opacity: 1; }
 }
-.animate-pulse-slow {
-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-.animate-bounce-slow {
-animation: bounce 2s infinite;
-}
-@keyframes bounce {
-0%, 100% { transform: translateY(0); }
-50% { transform: translateY(-8px); }
-}
 .sr-only {
 position: absolute;
 width: 1px;
@@ -76,32 +74,159 @@ clip: rect(0, 0, 0, 0);
 white-space: nowrap;
 border: 0;
 }
-.custom-scrollbar::-webkit-scrollbar {
-width: 4px;
+#app-error {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: #1e293b;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+color: white;
+padding: 20px;
+text-align: center;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-background: #f1f5f9;
-border-radius: 2px;
+#app-error h2 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+color: #ef4444;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-background: #cbd5e1;
-border-radius: 2px;
+#app-error p {
+margin-bottom: 1rem;
+color: #cbd5e1;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-background: #94a3b8;
+#app-error button {
+background: #3b82f6;
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 8px;
+font-weight: bold;
+cursor: pointer;
+transition: background 0.2s;
+}
+#app-error button:hover {
+background: #2563eb;
+}
+.loading-screen {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+background: #0f172a;
+color: white;
+}
+.loading-spinner {
+width: 48px;
+height: 48px;
+border: 4px solid rgba(255, 255, 255, 0.3);
+border-radius: 50%;
+border-top-color: #38bdf8;
+animation: spin 1s linear infinite;
+margin-bottom: 20px;
+}
+@keyframes spin {
+to { transform: rotate(360deg); }
 }
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="root">
+<div class="loading-screen">
+<div class="loading-spinner"></div>
+<h2>Cargando Asistente de Viaje</h2>
+<p>v1.0.44</p>
+</div>
+</div>
+<div id="app-error" style="display: none;">
+<h2>⚠️ Error de Aplicación</h2>
+<p id="error-message">Ocurrió un error inesperado</p>
+<button onclick="location.reload()">Recargar Aplicación</button>
+</div>
+<script>
+// Configuración para GitHub Pages - Detectar base URL automáticamente
+const getGitHubBaseUrl = () => {
+const path = window.location.pathname;
+const repoName = path.split('/')[1] || '';
+// Si estamos en un subdirectorio (GitHub Pages), usar ese como base
+if (repoName && !repoName.includes('.')) {
+return `/${repoName}/`;
+}
+return './';
+};
+
+// Establecer base URL para la aplicación
+const BASE_URL = getGitHubBaseUrl();
+console.log('GitHub Base URL:', BASE_URL);
+
+// Helper para construir URLs absolutas
+const buildUrl = (path) => {
+if (path.startsWith('http') || path.startsWith('//')) return path;
+if (path.startsWith('./')) return BASE_URL + path.substring(2);
+if (path.startsWith('/')) return BASE_URL + path.substring(1);
+return BASE_URL + path;
+};
+
+// Manejo de errores global
+window.onerror = function(message, source, lineno, colno, error) {
+console.error('Global Error:', message, error);
+showAppError(`Error: ${message} en línea ${lineno}`);
+return true;
+};
+
+window.addEventListener('unhandledrejection', function(event) {
+console.error('Unhandled Rejection:', event.reason);
+showAppError(`Error no manejado: ${event.reason?.message || event.reason}`);
+});
+
+function showAppError(message) {
+document.getElementById('app-error').style.display = 'flex';
+document.getElementById('error-message').textContent = message;
+// Ocultar pantalla de carga
+const root = document.getElementById('root');
+if (root) root.innerHTML = '';
+}
+
+// Intentar cargar la aplicación con manejo de errores
+try {
+// Código React se cargará aquí
+} catch (error) {
+console.error('Error inicializando aplicación:', error);
+showAppError(`Error de inicialización: ${error.message}`);
+}
+</script>
 <script type="text/babel">
 const { useState, useEffect, useRef } = React;
 
 // ==========================================
-// CONFIGURACION DE LA APLICACIÓN
+// CONFIGURACION DE LA APLICACIÓN PARA GITHUB PAGES
 // ==========================================
 const APP_VERSION = '1.0.44';
-const GITHUB_REPO_URL = 'https://raw.githubusercontent.com/tuusuario/tu-repo/main'; // Cambiar por tu URL real
+
+// Detectar automáticamente la URL del repositorio en GitHub Pages
+const getGitHubRepoUrl = () => {
+const url = window.location.href;
+// Si estamos en GitHub Pages, extraer el repo path
+if (url.includes('github.io')) {
+const pathParts = url.split('/');
+const username = pathParts[2].split('.')[0]; // usuario.github.io
+const repoName = pathParts[3] || '';
+if (repoName) {
+return `https://raw.githubusercontent.com/${username}/${repoName}/main`;
+}
+}
+// Fallback para desarrollo local
+return './';
+};
+
+const GITHUB_REPO_URL = getGitHubRepoUrl();
+console.log('GitHub Repo URL:', GITHUB_REPO_URL);
+
 const DB_NAME = 'TripAssistantDB_v2';
 const DB_VERSION = 2;
 
@@ -340,6 +465,12 @@ minute: '2-digit'
 });
 };
 
+const formatTime = (seconds) => {
+const mins = Math.floor(seconds / 60);
+const secs = seconds % 60;
+return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+};
+
 // --- COMPONENTES MEJORADOS ---
 
 // Modal de Información de Versión
@@ -429,15 +560,15 @@ return (
 </div>
 <h3 className="text-xl font-bold text-slate-800 mb-2">Nueva Versión Disponible</h3>
 <p className="text-slate-500 mb-4 text-sm">
-Hay una nueva versión disponible: <span className="font-bold text-blue-600">v{newVersion}</span>
+Hay una nueva versión disponible: <span class="font-bold text-blue-600">v{newVersion}</span>
 </p>
   
 <div className="w-full bg-slate-50 rounded-xl p-4 mb-4 max-h-48 overflow-y-auto custom-scrollbar">
 <h4 className="font-bold text-slate-700 mb-2 text-sm">Novedades:</h4>
 <ul className="list-disc pl-4 space-y-1 text-xs text-slate-600">
-{changelog.map((item, index) => (
+{changelog && changelog.length > 0 ? changelog.map((item, index) => (
 <li key={index}>{item}</li>
-))}
+)) : <li>Sin cambios especificados</li>}
 </ul>
 </div>
   
@@ -502,119 +633,11 @@ Comenzar
 );
 };
 
-// Resto de los componentes modales (mantenidos con mejoras)
-const ChargeTypeModal = ({ isOpen, onClose, onSelectType }) => {
-if (!isOpen) return null;
-return (
-<div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-[90] flex items-center justify-center p-4">
-<div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-in zoom-in duration-200">
-<div className="flex items-center mb-6 text-yellow-600">
-<Icon name="Zap" size={24} className="mr-2"/>
-<h3 className="text-xl font-bold text-slate-800">Tipo de Carga</h3>
-</div>
-<div className="flex flex-col gap-3">
-<button
-onClick={() => onSelectType('AC')}
-className="bg-blue-50 text-blue-700 py-4 rounded-xl font-bold text-lg hover:bg-blue-100 transition-all active:scale-95 flex items-center justify-center"
->
-<Icon name="Clock" size={20} className="mr-2"/> Carga Lenta (AC)
-</button>
-<button
-onClick={() => onSelectType('DC')}
-className="bg-yellow-50 text-yellow-700 py-4 rounded-xl font-bold text-lg hover:bg-yellow-100 transition-all active:scale-95 flex items-center justify-center"
->
-<Icon name="Zap" size={20} className="mr-2"/> Carga Rápida (CC)
-</button>
-<button
-onClick={onClose}
-className="mt-2 text-slate-400 font-bold text-sm hover:text-slate-600"
->
-Cancelar
-</button>
-</div>
-</div>
-</div>
-);
-};
-
-const ParkingAskModal = ({ isOpen, onClose, onYes, onNo }) => {
-if (!isOpen) return null;
-return (
-<div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-[80] flex items-center justify-center p-4">
-<div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-in zoom-in duration-200">
-<div className="flex items-center mb-4 text-blue-600">
-<Icon name="Car" size={24} className="mr-2"/>
-<h3 className="text-xl font-bold text-slate-800">¿Pagaste Estacionamiento?</h3>
-</div>
-<p className="text-slate-500 mb-6 font-medium">Saliendo de cliente. ¿Deseas registrar el gasto ahora?</p>
-<div className="flex gap-3">
-<button
-onClick={onNo}
-className="flex-1 bg-slate-100 text-slate-500 py-4 rounded-xl font-bold text-lg hover:bg-slate-200 transition-all active:scale-95"
->
-No
-</button>
-<button
-onClick={onYes}
-className="flex-1 bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-emerald-700 transition-all active:scale-95"
->
-Sí
-</button>
-</div>
-</div>
-</div>
-);
-};
-
-const DestinationInputModal = ({ isOpen, onClose, onConfirm, title, placeholder, initialValue = '' }) => {
-const [value, setValue] = useState(initialValue);
-useEffect(() => {
-if (isOpen) setValue(initialValue);
-}, [isOpen, initialValue]);
-if (!isOpen) return null;
-return (
-<div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-[80] flex items-center justify-center p-4">
-<div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-in zoom-in duration-200">
-<div className="flex items-center mb-4 text-blue-600">
-<Icon name="MapPin" size={24} className="mr-2"/>
-<h3 className="text-xl font-bold text-slate-800">{title}</h3>
-</div>
-<input
-type="text"
-autoFocus
-value={value}
-onChange={e => setValue(e.target.value)}
-className="w-full text-lg font-medium text-slate-800 border-b-2 border-slate-200 focus:border-blue-500 outline-none py-2 mb-6"
-placeholder={placeholder}
-onKeyDown={(e) => {
-if (e.key === 'Enter' && value.trim()) {
-onConfirm(value.trim());
-setValue('');
-}
-}}
-/>
-<button
-disabled={!value.trim()}
-onClick={() => {
-if (value.trim()) {
-onConfirm(value.trim());
-setValue('');
-}
-}}
-className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
->
-Confirmar e Iniciar
-</button>
-</div>
-</div>
-);
-);
-
 // Componente de Detección de Viaje en Curso
 const ResumeTripModal = ({ isOpen, onClose, onContinue, onCancel, tripData }) => {
 if (!isOpen || !tripData) return null;
   
-const timeSinceStart = Date.now() - tripData.startTime;
+const timeSinceStart = Date.now() - new Date(tripData.startTime).getTime();
 const hours = Math.floor(timeSinceStart / (1000 * 60 * 60));
 const minutes = Math.floor((timeSinceStart % (1000 * 60 * 60)) / (1000 * 60));
   
@@ -661,8 +684,6 @@ Continuar Viaje
 );
 };
 
-// Resto de los componentes (VisitEditModal, TripEditModal, ExpenseModal, CategorySelector) - mantenidos pero mejorados
-
 // Componente App Principal con Todas las Mejoras
 const App = () => {
 // --- ESTADO MEJORADO ---
@@ -677,6 +698,7 @@ const [newVersion, setNewVersion] = useState('');
 const [updateChangelog, setUpdateChangelog] = useState([]);
 const [resumeTripData, setResumeTripData] = useState(null);
 const [resumeTripModal, setResumeTripModal] = useState(false);
+const [error, setError] = useState(null);
 
 // Odómetros inicializados en 0 como solicitado
 const [vehicleOdometers, setVehicleOdometers] = useState({
@@ -755,10 +777,12 @@ const [gapKm, setGapKm] = useState(0);
 const [elapsedTime, setElapsedTime] = useState(0);
 const timerRef = useRef(null);
 
-// --- CARGA INICIAL MEJORADA ---
+// --- CARGA INICIAL MEJORADA CON MANEJO DE ERRORES ---
 useEffect(() => {
 const initializeApp = async () => {
 try {
+console.log('Iniciando aplicación...');
+  
 // Verificar si es primera ejecución
 const hasInitialized = await dbHelper.get('settings', 'has_initialized');
 if (!hasInitialized) {
@@ -808,8 +832,12 @@ await dbHelper.set('settings', 'current_trip', null);
 }
   
 // Verificar actualizaciones después de cargar datos
-setTimeout(() => {
-checkForUpdates();
+setTimeout(async () => {
+try {
+await checkForUpdates();
+} catch (updateError) {
+console.warn('Error checking updates (non-fatal):', updateError);
+}
 }, 2000);
   
 setDataLoaded(true);
@@ -817,10 +845,11 @@ setAppState('IDLE');
   
 } catch (error) {
 console.error("Error initializing app:", error);
+setError(error.message || 'Error de inicialización');
+// Intentar con valores por defecto
+setVehicleOdometers({ PERSONAL: 0, COMPANY_FUEL: 0, COMPANY_ELECTRIC: 0, OTHER: 0 });
 setDataLoaded(true);
 setAppState('IDLE');
-// Inicializar con valores por defecto si falla
-setVehicleOdometers({ PERSONAL: 0, COMPANY_FUEL: 0, COMPANY_ELECTRIC: 0, OTHER: 0 });
 }
 };
   
@@ -837,10 +866,10 @@ const tripToSave = {
 ...currentTrip,
 status: appState
 };
-dbHelper.set('settings', 'current_trip', tripToSave);
+dbHelper.set('settings', 'current_trip', tripToSave).catch(console.error);
 } else {
 // Limpiar viaje actual si no está en curso
-dbHelper.set('settings', 'current_trip', null);
+dbHelper.set('settings', 'current_trip', null).catch(console.error);
 }
 }, [currentTrip, appState, dataLoaded]);
 
@@ -851,17 +880,17 @@ useEffect(() => { if(dataLoaded) dbHelper.set('settings', 'configs', vehicleConf
 // --- GUARDAR DATOS EN TABLAS ESPECÍFICAS ---
 useEffect(() => {
 if (!dataLoaded) return;
-trips.forEach(trip => dbHelper.set('trips', trip.id, trip));
+trips.forEach(trip => dbHelper.set('trips', trip.id, trip).catch(console.error));
 }, [trips, dataLoaded]);
 
 useEffect(() => {
 if (!dataLoaded) return;
-expenses.forEach(expense => dbHelper.set('expenses', expense.id, expense));
+expenses.forEach(expense => dbHelper.set('expenses', expense.id, expense).catch(console.error));
 }, [expenses, dataLoaded]);
 
 useEffect(() => {
 if (!dataLoaded) return;
-visits.forEach(visit => dbHelper.set('visits', visit.id, visit));
+visits.forEach(visit => dbHelper.set('visits', visit.id, visit).catch(console.error));
 }, [visits, dataLoaded]);
 
 // --- TEMPORIZADOR MEJORADO ---
@@ -881,23 +910,37 @@ if (timerRef.current) clearInterval(timerRef.current);
 };
 }, [appState, currentTrip.startTime]);
 
-// --- SISTEMA DE ACTUALIZACIONES ---
+// --- SISTEMA DE ACTUALIZACIONES MEJORADO ---
 const checkForUpdates = async () => {
 try {
 console.log("Checking for updates...");
-const response = await fetch(`${GITHUB_REPO_URL}/version.json?timestamp=${Date.now()}`, {
+  
+// Construir URL para version.json
+const versionUrl = GITHUB_REPO_URL.endsWith('/') 
+? `${GITHUB_REPO_URL}version.json?timestamp=${Date.now()}`
+: `${GITHUB_REPO_URL}/version.json?timestamp=${Date.now()}`;
+  
+console.log('Fetching version from:', versionUrl);
+  
+const response = await fetch(versionUrl, {
 cache: 'no-cache',
-mode: 'no-cors'
+mode: 'cors'
 });
   
-if (response.ok) {
+console.log('Response status:', response.status);
+  
+if (!response.ok) {
+console.warn('No se pudo obtener version.json, status:', response.status);
+return;
+}
+  
 const remoteData = await response.json();
+console.log('Remote version data:', remoteData);
   
 if (remoteData.version && remoteData.version > APP_VERSION) {
 setNewVersion(remoteData.version);
-setUpdateChangelog(remoteData.changelog || []);
+setUpdateChangelog(remoteData.changelog || ['Nuevas mejoras y correcciones']);
 setShowUpdatePrompt(true);
-}
 }
 } catch (error) {
 console.warn('No se pudo verificar actualizaciones:', error);
@@ -923,10 +966,17 @@ setResumeTripData(null);
 
 const handleUpdateApp = async () => {
 try {
-const response = await fetch(`${GITHUB_REPO_URL}/index.html?t=${Date.now()}`);
+// Construir URL para index.html
+const indexUrl = GITHUB_REPO_URL.endsWith('/') 
+? `${GITHUB_REPO_URL}index.html?t=${Date.now()}`
+: `${GITHUB_REPO_URL}/index.html?t=${Date.now()}`;
+  
+const response = await fetch(indexUrl);
 if (!response.ok) throw new Error('Failed to fetch new version');
   
 const newHtml = await response.text();
+  
+// Crear un blob y URL para la nueva versión
 const blob = new Blob([newHtml], { type: 'text/html' });
 const url = URL.createObjectURL(blob);
   
@@ -1185,540 +1235,4 @@ id: expenseModalData.id || Date.now(),
 date: new Date().toISOString(),
 category: expenseModalData.category,
 amount: parseFloat(expenseModalData.amount) || 0,
-currency: expenseModalData.currencyType === 'Otro' ? expenseModalData.currency : expenseModalData.currency,
-method: expenseModalData.method,
-type: expenseModalData.type,
-notes: expenseModalData.notes,
-odometer: expenseModalData.odometer,
-volume: expenseModalData.volume,
-tripId: currentTrip.startTime ? currentTrip.startTime.getTime() : null
-};
-  
-if (expenseModalData.id) {
-// Editar gasto existente
-setExpenses(prev => prev.map(e => e.id === expenseModalData.id ? newExpense : e));
-} else {
-// Nuevo gasto
-if (['ACTIVE', 'ENDING'].includes(appState)) {
-setCurrentTrip(prev => ({
-...prev,
-tripExpenses: [...prev.tripExpenses, newExpense]
-}));
-}
-setExpenses(prev => [newExpense, ...prev]);
-}
-  
-setExpenseModalData({ ...expenseModalData, isOpen: false });
-  
-// Check for pending start trip after parking expense
-if (appState === 'STARTING' && pendingStartData) {
-startTripProcess(pendingStartData.odo, pendingStartData.dest);
-setPendingStartData(null);
-}
-};
-
-const deleteExpense = () => {
-if (expenseModalData.id) {
-setExpenses(prev => prev.filter(e => e.id !== expenseModalData.id));
-setExpenseModalData({ ...expenseModalData, isOpen: false });
-}
-};
-
-// --- RENDERIZADO MEJORADO ---
-if (appState === 'LOADING') {
-return (
-<div className="flex flex-col items-center justify-center h-screen bg-slate-50">
-<div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mb-6 animate-pulse-slow">
-<Icon name="Car" size={32} className="text-white"/>
-</div>
-<h2 className="text-2xl font-bold text-slate-800 mb-2">Cargando Asistente de Viaje</h2>
-<p className="text-slate-500 text-sm">v{APP_VERSION}</p>
-<div className="mt-8 w-48 h-2 bg-slate-200 rounded-full overflow-hidden">
-<div className="h-full bg-blue-500 animate-[loading_1.5s_ease-in-out_infinite]" style={{ width: '30%' }}></div>
-</div>
-</div>
-);
-}
-  
-return (
-<div className="flex flex-col h-screen w-full max-w-md mx-auto shadow-2xl overflow-hidden font-sans relative bg-slate-100">
-{/* Modales */}
-<VersionInfoModal isOpen={showVersionInfo} onClose={() => setShowVersionInfo(false)} />
-<UpdatePromptModal 
-isOpen={showUpdatePrompt} 
-onClose={() => setShowUpdatePrompt(false)} 
-onConfirm={handleUpdateApp}
-newVersion={newVersion}
-changelog={updateChangelog}
-/>
-<FirstRunModal isOpen={firstRun} onClose={() => setFirstRun(false)} />
-<ResumeTripModal
-isOpen={resumeTripModal}
-onClose={() => setResumeTripModal(false)}
-onContinue={handleResumeTrip}
-onCancel={handleCancelResumeTrip}
-tripData={resumeTripData}
-/>
-  
-{/* Componentes principales */}
-<ExpenseModal isOpen={expenseModalData.isOpen} onClose={(action) => {
-if (action === 'DELETE') deleteExpense();
-else setExpenseModalData({...expenseModalData, isOpen: false});
-}} onConfirm={confirmExpense} expenseData={expenseModalData} setExpenseData={setExpenseModalData} />
-<CategorySelector isOpen={showExpenseCategorySelector} onClose={() => setShowExpenseCategorySelector(false)} onSelect={openExpenseModal} />
-<ChargeTypeModal isOpen={showChargeTypeModal} onClose={() => setShowChargeTypeModal(false)} onSelectType={(type) => {
-setShowChargeTypeModal(false);
-const price = type === 'AC' ? vehicleConfigs[dashboardVehicleId]?.fuelPriceAC : vehicleConfigs[dashboardVehicleId]?.fuelPriceDC;
-openExpenseModal('Carga Eléctrica', formatMoney(price || 0));
-}} />
-<ParkingAskModal isOpen={showParkingAskModal} onClose={() => setShowParkingAskModal(false)} onYes={() => {
-setShowParkingAskModal(false);
-openExpenseModal('Estacionamiento');
-}} onNo={() => {
-setShowParkingAskModal(false);
-if(pendingStartData) {
-startTripProcess(pendingStartData.odo, pendingStartData.dest);
-setPendingStartData(null);
-}
-}} />
-<DestinationInputModal isOpen={showDestinationModal} title={textModalTitle} placeholder={textModalTitle.includes('Cliente') ? "Ej. Empresa X" : "Ej. Gimnasio"} initialValue="" onClose={() => setShowDestinationModal(false)} onConfirm={(name) => {
-const finalName = name.trim();
-let formattedName = finalName;
-if (textModalTitle.includes('Cliente') && !finalName.toLowerCase().startsWith('cliente')) {
-formattedName = `Cliente: ${finalName}`;
-}
-if (locationSelectorMode === 'ORIGIN') {
-setLastLocation(formattedName);
-setShowDestinationModal(false);
-setShowLocationSelector(false);
-} else {
-setInputDestination(formattedName);
-setShowDestinationModal(false);
-if (appState === 'STARTING') {
-confirmStartTrip(formattedName);
-}
-setShowLocationSelector(false);
-}
-}} />
-  
-{/* Vistas principales */}
-{renderMainView()}
-</div>
-);
-};
-
-// Función para renderizar la vista principal según el estado
-const renderMainView = () => {
-switch (appState) {
-case 'IDLE':
-return renderIdleView();
-case 'STARTING':
-return renderStartingView();
-case 'ACTIVE':
-return renderActiveView();
-case 'ENDING':
-return renderEndingView();
-case 'SETTINGS':
-return renderSettingsView();
-case 'HISTORY':
-return renderHistoryView();
-default:
-return renderIdleView();
-}
-};
-
-// Vistas individuales (implementadas como funciones separadas para mejor mantenibilidad)
-const renderIdleView = () => {
-return (
-<div className="flex flex-col h-full bg-slate-100">
-{renderLocationSelector()}
-{renderVehicleSelector()}
-{renderOdometerEditor()}
-  
-<div className="bg-slate-800 text-white p-6 rounded-b-[2rem] shadow-xl z-10">
-<div className="flex justify-between items-start mb-6">
-<div>
-<h1 className="text-xl font-bold">Bitácora de Viaje</h1>
-<p className="text-slate-400 text-xs">v{APP_VERSION}</p>
-</div>
-<div className="flex gap-2">
-<button onClick={() => setShowVersionInfo(true)} className="bg-slate-700 p-2 rounded-full hover:bg-slate-600 transition-colors" title="Información de versión">
-<Icon name="Info" size={20}/>
-</button>
-<button onClick={() => setAppState('HISTORY')} className="bg-slate-700 p-2 rounded-full hover:bg-slate-600 transition-colors">
-<Icon name="History" size={20}/>
-</button>
-<button onClick={() => setAppState('SETTINGS')} className="bg-slate-700 p-2 rounded-full hover:bg-slate-600 transition-colors">
-<Icon name="Settings" size={20}/>
-</button>
-</div>
-</div>
-<div className="grid grid-cols-2 gap-3">
-<button onClick={() => { setLocationSelectorMode('ORIGIN'); setShowLocationSelector(true); }} className="bg-slate-700/50 p-3 rounded-2xl backdrop-blur-md text-left hover:bg-slate-700 transition-colors group relative">
-<div className="flex justify-between items-start"><p className="text-slate-400 text-[10px] uppercase font-bold group-hover:text-blue-300">Ubicación Actual</p><Icon name="Edit2" size={10} className="text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity"/></div>
-<div className="flex items-center font-bold text-lg truncate mt-1"><Icon name="MapPin" size={16} className="mr-1 text-emerald-400"/> {lastLocation}</div>
-</button>
-<div className="bg-slate-700/50 p-3 rounded-2xl backdrop-blur-md flex flex-col justify-between group">
-<div className="flex justify-between items-start mb-1">
-<button onClick={(e) => { e.stopPropagation(); setShowVehicleSelector(true); }} className="flex items-center text-[10px] uppercase font-bold text-slate-300 bg-slate-800/80 px-2 py-0.5 rounded-full hover:bg-blue-600 hover:text-white transition-colors">
-{getVehicleInfo(dashboardVehicleId).short} <Icon name="ChevronDown" size={10} className="ml-1"/>
-</button>
-</div>
-<button onClick={() => setShowOdometerEditor(true)} className="text-right hover:opacity-80 transition-opacity w-full">
-<div className="font-mono text-xl leading-none">{formatDistance(vehicleOdometers[dashboardVehicleId])}</div><span className="text-[10px] text-slate-500 font-bold">km</span>
-</button>
-</div>
-</div>
-</div>
-<div className="flex-1 flex flex-col items-center justify-center relative">
-<div className="absolute top-6 w-full px-6 flex justify-between">
-<button onClick={() => {
-const currentVeh = getVehicleInfo(dashboardVehicleId);
-if (currentVeh.type === 'electric') {
-setShowChargeTypeModal(true);
-} else {
-openExpenseModal('Carga Combustible');
-}
-}} className="flex flex-col items-center text-orange-600 hover:text-orange-700 scale-90 transition-transform active:scale-95"><div className="bg-orange-50 p-3 rounded-full shadow-md mb-1 w-12 h-12 flex items-center justify-center border border-orange-100"><Icon name="Fuel" size={20}/></div><span className="text-[10px] font-bold">Cargar</span></button>
-<button onClick={() => openExpenseModal('Estacionamiento')} className="flex flex-col items-center text-blue-600 hover:text-blue-700 scale-90 transition-transform active:scale-95"><div className="bg-blue-50 p-3 rounded-full shadow-md mb-1 w-12 h-12 flex items-center justify-center border border-blue-100"><Icon name="Car" size={20}/></div><span className="text-[10px] font-bold">Estacionar</span></button>
-</div>
-<button onClick={handleStartPress} className="w-56 h-56 rounded-full bg-gradient-to-b from-emerald-500 to-emerald-600 shadow-2xl shadow-emerald-200 flex flex-col items-center justify-center border-4 border-white active:scale-95 transition-all z-20 mt-12">
-<Icon name="Play" fill="white" size={60} className="text-white ml-2 mb-1"/><span className="text-white font-bold text-lg tracking-widest mt-2">INICIAR</span>
-</button>
-<div className="mt-8 flex items-center justify-center gap-4 z-20 w-full px-8">
-<button onClick={() => setShowExpenseCategorySelector(true)} className="flex-1 flex items-center justify-center bg-violet-50 backdrop-blur-sm py-3 rounded-2xl shadow-sm text-violet-700 font-bold text-sm hover:bg-violet-100 transition-all active:scale-95 border border-violet-100"><Icon name="Plus" size={18} className="mr-2"/> Gasto</button>
-<button onClick={() => setShowVehicleSelector(true)} className="flex-1 flex items-center justify-center bg-white/80 backdrop-blur-sm py-3 rounded-2xl shadow-sm text-slate-600 font-bold text-sm hover:bg-white transition-all active:scale-95 border border-white">
-<div className="mr-2"><Icon name={getVehicleInfo(dashboardVehicleId).icon} size={18} className="text-blue-500"/></div>
-{getVehicleInfo(dashboardVehicleId).label}
-</button>
-</div>
-</div>
-<div className="bg-white h-1/4 rounded-t-[2rem] shadow-lg p-6 overflow-hidden">
-<h3 className="text-slate-300 text-xs font-bold uppercase tracking-wider mb-4">Últimos Viajes</h3>
-<div className="space-y-3 overflow-y-auto h-full pb-10 scrollbar-hide">
-{trips.length === 0 ? <p className="text-slate-300 text-center text-sm italic mt-4">No hay viajes registrados</p> :
-trips.slice(0, 5).map(t => (
-<div key={t.id} onClick={() => setEditingTrip(t)} className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 active:scale-95 transition-transform cursor-pointer">
-<div className="flex justify-between items-center border-b border-slate-50 pb-2 mb-1">
-<span className="text-xs font-bold text-slate-400">{formatDate(t.date)}</span>
-<Icon name="Edit2" size={12} className="text-slate-300"/>
-</div>
-<div className="flex items-center justify-between">
-<div className="flex flex-col">
-<span className="text-sm font-bold text-slate-800">{t.origin}</span>
-<Icon name="ArrowRight" size={14} className="text-slate-300 my-0.5 rotate-90 sm:rotate-0"/>
-<span className="text-sm font-bold text-slate-800">{t.destination}</span>
-</div>
-<div className="text-right">
-<span className="block text-2xl font-mono font-bold text-blue-600">{formatDistance(t.distance)} <span className="text-sm font-sans text-slate-400">km</span></span>
-<span className="text-xs text-slate-400">{formatTimeOnly(t.startTime)} - {formatTimeOnly(t.endTime)}</span>
-</div>
-</div>
-</div>
-))
-}
-</div>
-</div>
-</div>
-);
-};
-
-// Las otras vistas (renderStartingView, renderActiveView, renderEndingView, renderSettingsView, renderHistoryView) se mantienen similares pero con las mejoras implementadas
-// Por brevedad, no las incluyo completas aquí, pero seguirían la misma lógica de mejora
-
-const renderStartingView = () => {
-// Vista mejorada para inicio de viaje
-return (
-<div className="flex flex-col h-screen w-full max-w-md mx-auto p-5 font-sans relative overflow-hidden bg-white shadow-2xl">
-{/* Contenido de la vista de inicio de viaje */}
-<div className="flex-1 flex flex-col items-center justify-center">
-<h2 className="text-2xl font-bold text-slate-800 mb-4">Vista de Inicio de Viaje (Mejorada)</h2>
-<p className="text-slate-500">Implementación completa con todas las mejoras solicitadas</p>
-</div>
-<button onClick={() => setAppState('IDLE')} className="absolute bottom-4 left-4 bg-slate-100 text-slate-500 py-2 px-4 rounded-lg font-bold hover:bg-slate-200">
-Volver
-</button>
-</div>
-);
-};
-
-const renderActiveView = () => {
-// Vista mejorada para viaje activo
-return (
-<div className="flex flex-col h-screen bg-slate-900 text-white w-full max-w-md mx-auto shadow-2xl overflow-hidden font-sans relative">
-{/* Contenido de la vista de viaje activo */}
-<div className="flex-1 flex flex-col items-center justify-center">
-<h2 className="text-2xl font-bold mb-4">Vista de Viaje Activo (Mejorada)</h2>
-<p className="text-slate-300">Con temporizador y gestión de gastos mejorada</p>
-</div>
-</div>
-);
-};
-
-const renderEndingView = () => {
-// Vista mejorada para fin de viaje
-return (
-<div className="flex flex-col h-screen w-full max-w-md mx-auto shadow-2xl overflow-hidden font-sans relative bg-slate-50">
-{/* Contenido de la vista de fin de viaje */}
-<div className="flex-1 flex flex-col items-center justify-center">
-<h2 className="text-2xl font-bold text-slate-800 mb-4">Vista de Fin de Viaje (Mejorada)</h2>
-<p className="text-slate-500">Con cálculo automático de distancia y gestión de gastos</p>
-</div>
-</div>
-);
-};
-
-const renderSettingsView = () => {
-// Vista mejorada de configuración
-return (
-<div className="flex flex-col h-screen w-full max-w-md mx-auto shadow-2xl overflow-hidden font-sans relative bg-slate-50 p-6">
-<div className="flex items-center mb-6">
-<button onClick={() => setAppState('IDLE')} className="p-2 -ml-2 text-slate-400 hover:text-slate-600">
-<Icon name="ArrowRight" className="rotate-180" size={24}/>
-</button>
-<h2 className="text-2xl font-bold ml-2">Configuración</h2>
-<span className="ml-2 text-sm text-slate-400">v{APP_VERSION}</span>
-</div>
-<div className="grid grid-cols-2 gap-3 mb-4">
-{VEHICLE_TYPES.map(v => (
-<button 
-key={v.id} 
-onClick={() => setEditingVehicleId(v.id)} 
-className={`flex flex-col items-center justify-center p-4 rounded-2xl transition-all border-2 ${editingVehicleId === v.id ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-slate-100'}`}
->
-<Icon name={v.icon} size={28}/>
-<span className="text-xs mt-2">{v.label}</span>
-</button>
-))}
-</div>
-<div className="space-y-4 flex-1 overflow-y-auto">
-<div>
-<label className="text-xs font-bold text-slate-500">Peaje</label>
-<input 
-type="number" 
-step="0.01" 
-value={vehicleConfigs[editingVehicleId].tollPrice} 
-onChange={e => {
-const value = e.target.value;
-if (value === '' || parseFloat(value) >= 0) {
-setVehicleConfigs(prev => ({
-...prev,
-[editingVehicleId]: { ...prev[editingVehicleId], tollPrice: value }
-}));
-}
-}} 
-className="w-full border p-3 rounded-xl" 
-onFocus={(e) => e.target.select()}
-/>
-</div>
-<div>
-<label className="text-xs font-bold text-slate-500">Valor Km</label>
-<input 
-type="number" 
-step="0.01" 
-value={vehicleConfigs[editingVehicleId].kmValue} 
-onChange={e => {
-const value = e.target.value;
-if (value === '' || parseFloat(value) >= 0) {
-setVehicleConfigs(prev => ({
-...prev,
-[editingVehicleId]: { ...prev[editingVehicleId], kmValue: value }
-}));
-}
-}} 
-className="w-full border p-3 rounded-xl" 
-onFocus={(e) => e.target.select()}
-/>
-</div>
-{getVehicleInfo(editingVehicleId).type === 'electric' ? (
-<div className="grid grid-cols-2 gap-4">
-<div>
-<label className="text-xs font-bold text-slate-500">Carga AC</label>
-<input 
-type="number" 
-step="0.01" 
-value={vehicleConfigs[editingVehicleId].fuelPriceAC} 
-onChange={e => {
-const value = e.target.value;
-if (value === '' || parseFloat(value) >= 0) {
-setVehicleConfigs(prev => ({
-...prev,
-[editingVehicleId]: { ...prev[editingVehicleId], fuelPriceAC: value }
-}));
-}
-}} 
-className="w-full border p-3 rounded-xl" 
-onFocus={(e) => e.target.select()}
-/>
-</div>
-<div>
-<label className="text-xs font-bold text-slate-500">Carga CC</label>
-<input 
-type="number" 
-step="0.01" 
-value={vehicleConfigs[editingVehicleId].fuelPriceDC} 
-onChange={e => {
-const value = e.target.value;
-if (value === '' || parseFloat(value) >= 0) {
-setVehicleConfigs(prev => ({
-...prev,
-[editingVehicleId]: { ...prev[editingVehicleId], fuelPriceDC: value }
-}));
-}
-}} 
-className="w-full border p-3 rounded-xl" 
-onFocus={(e) => e.target.select()}
-/>
-</div>
-</div>
-) : (
-<div>
-<label className="text-xs font-bold text-slate-500">Combustible</label>
-<input 
-type="number" 
-step="0.01" 
-value={vehicleConfigs[editingVehicleId].fuelPrice} 
-onChange={e => {
-const value = e.target.value;
-if (value === '' || parseFloat(value) >= 0) {
-setVehicleConfigs(prev => ({
-...prev,
-[editingVehicleId]: { ...prev[editingVehicleId], fuelPrice: value }
-}));
-}
-}} 
-className="w-full border p-3 rounded-xl" 
-onFocus={(e) => e.target.select()}
-/>
-</div>
-)}
-</div>
-<button 
-onClick={() => {
-setShowSaveConfirmation(true);
-// Guardar configuración
-}}
-className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg shadow-xl mt-4 hover:bg-blue-700 transition-colors"
->
-Guardar Configuración
-</button>
-</div>
-);
-};
-
-const renderHistoryView = () => {
-// Vista mejorada de historial
-return (
-<div className="flex flex-col h-screen w-full max-w-md mx-auto shadow-2xl overflow-hidden font-sans relative bg-slate-50">
-<div className="bg-slate-800 text-white p-6 pb-8 rounded-b-[2rem] shadow-xl z-10">
-<div className="flex items-center mb-4">
-<button onClick={() => setAppState('IDLE')}>
-<Icon name="ArrowRight" className="rotate-180" size={24}/>
-</button>
-<h2 className="text-2xl font-bold ml-2">Historial</h2>
-</div>
-</div>
-<div className="flex-1 overflow-y-auto p-4 space-y-2">
-<div className="bg-white rounded-2xl shadow-lg p-1 flex mb-4">
-<button onClick={() => setHistoryTab('TRIPS')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${historyTab === 'TRIPS' ? 'bg-blue-50 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>Viajes</button>
-<button onClick={() => setHistoryTab('VISITS')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${historyTab === 'VISITS' ? 'bg-blue-50 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>Visitas</button>
-<button onClick={() => setHistoryTab('EXPENSES')} className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${historyTab === 'EXPENSES' ? 'bg-blue-50 text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>Gastos</button>
-</div>
-<div className="space-y-3 pb-10 scrollbar-hide">
-{historyTab === 'TRIPS' && (
-trips.length === 0 ? (
-<div className="flex flex-col items-center justify-center h-full text-slate-400">
-<Icon name="Car" size={48} className="mb-4 opacity-20"/>
-<p className="text-sm font-medium">Sin viajes registrados</p>
-</div>
-) : (
-trips.map(t => (
-<div key={t.id} onClick={() => setEditingTrip(t)} className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 active:scale-95 transition-transform cursor-pointer">
-<div className="flex justify-between items-center border-b border-slate-50 pb-2 mb-1">
-<span className="text-xs font-bold text-slate-400">{formatDate(t.date)}</span>
-<Icon name="Edit2" size={12} className="text-slate-300"/>
-</div>
-<div className="flex items-center justify-between">
-<div className="flex flex-col">
-<span className="text-sm font-bold text-slate-800">{t.origin}</span>
-<Icon name="ArrowRight" size={14} className="text-slate-300 my-0.5 rotate-90 sm:rotate-0"/>
-<span className="text-sm font-bold text-slate-800">{t.destination}</span>
-</div>
-<div className="text-right">
-<span className="block text-2xl font-mono font-bold text-blue-600">{formatDistance(t.distance)} <span className="text-sm font-sans text-slate-400">km</span></span>
-<span className="text-xs text-slate-400">{formatTimeOnly(t.startTime)} - {formatTimeOnly(t.endTime)}</span>
-</div>
-</div>
-</div>
-))
-)
-)}
-{historyTab === 'VISITS' && (
-visits.length === 0 ? (
-<div className="flex flex-col items-center justify-center h-full text-slate-400">
-<Icon name="Users" size={48} className="mb-4 opacity-20"/>
-<p className="text-sm font-medium">Sin visitas registradas</p>
-</div>
-) : (
-visits.map(v => (
-<div key={v.id} onClick={() => setEditingVisit(v)} className="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-blue-500 flex flex-col gap-2 cursor-pointer active:scale-95 transition-transform">
-<div className="flex justify-between items-center">
-<h3 className="font-bold text-slate-800">{v.client}</h3>
-<span className={`text-[10px] font-bold px-2 py-1 rounded uppercase ${v.status === 'COMPLETED' ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'}`}>
-{v.status === 'COMPLETED' ? 'Completada' : 'En Curso'}
-</span>
-</div>
-<div className="text-xs text-slate-500 space-y-1 mt-1">
-<div className="flex justify-between">
-<span>Ida: {formatTimeOnly(v.inboundTrip?.startTime)} ({v.inboundTrip?.distance || 0}km)</span>
-</div>
-{v.outboundTrip ? (
-<div className="flex justify-between border-t border-slate-50 pt-1">
-<span>Vuelta: {formatTimeOnly(v.outboundTrip.endTime)} ({v.outboundTrip.distance}km)</span>
-</div>
-) : (
-<div className="text-amber-500 italic">Pendiente de retorno...</div>
-)}
-</div>
-</div>
-))
-)
-)}
-{historyTab === 'EXPENSES' && (
-expenses.length === 0 ? (
-<div className="flex flex-col items-center justify-center h-full text-slate-400">
-<Icon name="DollarSign" size={48} className="mb-4 opacity-20"/>
-<p className="text-sm font-medium">Sin gastos registrados</p>
-</div>
-) : (
-expenses.map(e => (
-<div key={e.id} onClick={() => openExpenseModal(null, null, e)} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between cursor-pointer active:scale-95 transition-transform">
-<div>
-<div className="text-xs font-bold text-slate-400 mb-1">{formatDate(e.date)} • {e.category}</div>
-<div className="font-bold text-slate-700 flex items-center">
-{e.type === 'Empresa' ? <Icon name="Briefcase" size={14} className="mr-1.5 text-indigo-500"/> : <Icon name="Car" size={14} className="mr-1.5 text-blue-500"/>}
-{e.notes ? <span className="italic">{e.notes}</span> : e.type}
-</div>
-</div>
-<div className="text-right">
-<div className="font-mono font-bold text-lg text-slate-800">{e.currency} {formatMoney(e.amount)}</div>
-<div className="text-[10px] font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded inline-block mt-1">{PAYMENT_METHODS.find(m => m.id === e.method)?.label}</div>
-</div>
-</div>
-))
-)
-)}
-</div>
-</div>
-</div>
-);
-};
-
-// Componentes modales restantes (ExpenseModal, CategorySelector, etc.) se mantienen con mejoras similares
-
-// --- INICIALIZACIÓN ---
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
-</script>
-</body>
-</html>
+currency: expenseModalData.currencyType === 'Otro' ? expenseModalData.currency : expenseM
